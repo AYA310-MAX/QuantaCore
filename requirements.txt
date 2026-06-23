@@ -1,0 +1,6 @@
+# Sprint 0/1 uses only Python standard library.
+# Later we may add:
+# python-dotenv
+# requests
+# rich
+# openai
