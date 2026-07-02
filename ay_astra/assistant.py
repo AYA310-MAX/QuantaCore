@@ -14,6 +14,7 @@ from ay_astra.brain import AIBrain
 from ay_astra.personality import style_reply
 from ay_astra.tools.learning import handle_learning_command
 from ay_astra.tools.news import get_news_brief
+from ay_astra.tools.quiz import handle_quiz_command
 from ay_astra.tools.reminders import add_reminder, list_reminders
 from ay_astra.tools.research import get_research_brief
 from ay_astra.tools.tasks import add_task, complete_task, list_tasks
@@ -29,6 +30,9 @@ Commands available:
 /learn list                   List saved learning topics
 /learn review                 Show topics to review
 /learn reviewed ID            Mark a topic as reviewed
+/quiz start                   Start a quiz from your learning log
+/quiz topic TOPIC             Start a quiz on any topic
+/quiz answer YOUR ANSWER      Answer the current quiz question
 /task add DESCRIPTION         Add a task
 /task list                    List tasks
 /task done TASK_ID            Mark a task complete
@@ -44,6 +48,7 @@ Examples:
 /remind add 2026-07-02 18:00 Review AI agents notes
 /tutor APIs
 /learn add APIs | Learned that APIs let apps talk to each other
+/quiz start
 /research AI agents in education
 /brain status
 """.strip()
@@ -88,7 +93,10 @@ def handle_message(message: str) -> str:
     if message.startswith("/learn"):
         return style_reply(handle_learning_command(message))
 
-    if message.startswith("/news"):
+    if message.startswith("/quiz"):
+        return style_reply(handle_quiz_command(message))
+
+    if message.startswith("/news"): 
         topic = message.removeprefix("/news").strip() or "technology"
         return style_reply(get_news_brief(topic))
 
