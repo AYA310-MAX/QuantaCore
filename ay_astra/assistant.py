@@ -12,6 +12,7 @@ from __future__ import annotations
 
 from ay_astra.brain import AIBrain
 from ay_astra.personality import style_reply
+from ay_astra.tools.learning import handle_learning_command
 from ay_astra.tools.news import get_news_brief
 from ay_astra.tools.reminders import add_reminder, list_reminders
 from ay_astra.tools.research import get_research_brief
@@ -24,6 +25,10 @@ Commands available:
 /brain status                 Check whether the optional LLM brain is connected
 /memory clear                 Clear this session's conversation memory
 /tutor TOPIC                  Explain a topic beginner-style
+/learn add TOPIC | NOTE       Save something you studied
+/learn list                   List saved learning topics
+/learn review                 Show topics to review
+/learn reviewed ID            Mark a topic as reviewed
 /task add DESCRIPTION         Add a task
 /task list                    List tasks
 /task done TASK_ID            Mark a task complete
@@ -36,8 +41,9 @@ Commands available:
 
 Examples:
 /task add Finish software engineering assignment
-/remind add 2026-06-23 18:00 Review AI agents notes
+/remind add 2026-07-02 18:00 Review AI agents notes
 /tutor APIs
+/learn add APIs | Learned that APIs let apps talk to each other
 /research AI agents in education
 /brain status
 """.strip()
@@ -78,6 +84,9 @@ def handle_message(message: str) -> str:
     if message.startswith("/tutor"):
         topic = message.removeprefix("/tutor").strip()
         return style_reply(_tutor_mode(topic))
+
+    if message.startswith("/learn"):
+        return style_reply(handle_learning_command(message))
 
     if message.startswith("/news"):
         topic = message.removeprefix("/news").strip() or "technology"
