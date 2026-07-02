@@ -1,12 +1,15 @@
 """Configuration loader for AyAstra.
 
 Beginner explanation:
-Configuration means "settings the app can read without hard-coding them".
-For example, API keys should never be written directly inside Python files.
-Instead, we put them in a private `.env` file on your computer.
+Configuration means app settings.
 
-This file includes a tiny `.env` loader so the project does not need extra
-packages just to read environment variables.
+For example:
+- Which AI model should AyAstra use?
+- What API key should it use?
+- What API URL should it call?
+
+We do not write secret API keys directly in Python files.
+Later, we put them inside a private `.env` file.
 """
 
 from __future__ import annotations
@@ -18,7 +21,7 @@ from pathlib import Path
 
 @dataclass(frozen=True)
 class AppConfig:
-    """Settings AyAstra needs to know about."""
+    """Settings AyAstra needs for the optional AI brain."""
 
     llm_api_key: str
     llm_base_url: str
@@ -27,23 +30,36 @@ class AppConfig:
 
 
 def load_dotenv_file(path: str | Path = ".env") -> None:
-    """Load KEY=VALUE pairs from a local .env file into environment variables.
+    """Load settings from a local `.env` file if it exists.
 
-    This is a small beginner-friendly alternative to the `python-dotenv` package.
-    It ignores blank lines and comments. Existing environment variables win.
+    Example `.env` file:
+
+    LLM_API_KEY=your_key_here
+    LLM_MODEL=your_model_here
+    LLM_BASE_URL=https://api.openai.com/v1
     """
 
     env_path = Path(path)
+
     if not env_path.exists():
         return
 
-    for raw_line in env_path.read_text(encoding="utf-8").splitlines():
+    lines = env_path.read_text(encoding="utf-8").splitlines()
+
+    for raw_line in lines:
         line = raw_line.strip()
 
-        if not line or line.startswith("#") or "=" not in line:
+        if not line:
+            continue
+
+        if line.startswith("#"):
+            continue
+
+        if "=" not in line:
             continue
 
         key, value = line.split("=", 1)
+
         key = key.strip()
         value = value.strip().strip('"').strip("'")
 
@@ -52,9 +68,13 @@ def load_dotenv_file(path: str | Path = ".env") -> None:
 
 
 def _get_int_env(name: str, default: int) -> int:
+    """Read an environment variable as a number."""
+
     value = os.getenv(name, "").strip()
+
     if not value:
         return default
+
     try:
         return int(value)
     except ValueError:
@@ -62,7 +82,7 @@ def _get_int_env(name: str, default: int) -> int:
 
 
 def load_config() -> AppConfig:
-    """Load AyAstra's settings from `.env` and environment variables."""
+    """Load AyAstra settings from `.env` and environment variables."""
 
     load_dotenv_file()
 
@@ -72,4 +92,3 @@ def load_config() -> AppConfig:
         llm_model=os.getenv("LLM_MODEL", "").strip(),
         llm_timeout_seconds=_get_int_env("LLM_TIMEOUT_SECONDS", 30),
     )
-

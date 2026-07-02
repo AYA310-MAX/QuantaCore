@@ -14,6 +14,7 @@ from ay_astra.brain import AIBrain
 from ay_astra.personality import style_reply
 from ay_astra.tools.news import get_news_brief
 from ay_astra.tools.reminders import add_reminder, list_reminders
+from ay_astra.tools.research import get_research_brief
 from ay_astra.tools.tasks import add_task, complete_task, list_tasks
 
 HELP_TEXT = """
@@ -30,12 +31,14 @@ Commands available:
 /remind list                  List reminders
 /news TOPIC                   Fetch source-backed headlines from verified RSS feeds
 /news sources                 List configured news feeds
-/research TOPIC               Future source-based research mode placeholder
+/research TOPIC               Search academic paper metadata with source links
+/research sources             Show configured research sources
 
 Examples:
 /task add Finish software engineering assignment
 /remind add 2026-06-23 18:00 Review AI agents notes
 /tutor APIs
+/research AI agents in education
 /brain status
 """.strip()
 
@@ -82,7 +85,7 @@ def handle_message(message: str) -> str:
 
     if message.startswith("/research"):
         topic = message.removeprefix("/research").strip()
-        return style_reply(_research_mode_placeholder(topic))
+        return style_reply(get_research_brief(topic))
 
     if _looks_like_live_or_recent_info_request(message):
         return style_reply(_needs_verified_sources_message(message))
@@ -129,26 +132,6 @@ def _tutor_mode(topic: str) -> str:
     _remember("user", f"Tutor request: {topic}")
     _remember("assistant", reply.text)
     return reply.text
-
-
-def _research_mode_placeholder(topic: str) -> str:
-    if not topic:
-        return "Give me a research topic. Example: /research AI agents in education"
-
-    return f"""
-Research mode requested for: {topic}
-
-Truth protocol active: I need source tools before giving source-backed research answers.
-Future Research Mode will:
-- find reliable sources
-- summarize them
-- explain key terms
-- separate facts from interpretation
-- cite every important claim
-- help you understand the research like a patient tutor with better lighting
-
-For now, I will not pretend to have verified sources. Shiny confidence without evidence is just decoration.
-""".strip()
 
 
 def _basic_chat(message: str) -> str:
