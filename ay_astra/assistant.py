@@ -9,22 +9,25 @@ Later, this router will decide when to call web search, news APIs, or smart-home
 """
 
 from __future__ import annotations
-
 from ay_astra.brain import AIBrain
 from ay_astra.personality import style_reply
 from ay_astra.tools.learning import handle_learning_command
 from ay_astra.tools.news import get_news_brief
 from ay_astra.tools.quiz import handle_quiz_command
 from ay_astra.tools.reminders import add_reminder, list_reminders
+from ay_astra.tools.voice import handle_voice_command
 from ay_astra.tools.research import get_research_brief
 from ay_astra.tools.tasks import add_task, complete_task, list_tasks
-
 HELP_TEXT = """
 Commands available:
 /help                         Show this help menu
 /exit                         Close AyAstra
 /brain status                 Check whether the optional LLM brain is connected
 /memory clear                 Clear this session's conversation memory
+/voice status                 Check voice output setup
+/voice on                     Turn voice output on for this session
+/voice off                    Turn voice output off
+/voice test                   Speak a short test line
 /tutor TOPIC                  Explain a topic beginner-style
 /learn add TOPIC | NOTE       Save something you studied
 /learn list                   List saved learning topics
@@ -79,6 +82,9 @@ def handle_message(message: str) -> str:
     if lower_message == "/memory clear":
         _SESSION_HISTORY.clear()
         return style_reply("Session memory cleared. Fresh lab board, fewer fingerprints.")
+
+    if message.startswith("/voice"):
+        return style_reply(handle_voice_command(message))
 
     if message.startswith("/task"):
         return style_reply(_handle_task(message))

@@ -4,3 +4,16 @@
 # requests
 # rich
 # openai
+
+
+# AyAstra / QuantaCore dependencies
+
+# Sprint 7 voice output. Uses your computer's local text-to-speech engine.
+pyttsx3>=2.90
+
+# Later we may add:
+# python-dotenv       # popular .env loader
+# requests            # simpler HTTP calls
+# rich                # prettier terminal output
+# openai              # official OpenAI client if we choose that provider
+# speechrecognition   # voice input
