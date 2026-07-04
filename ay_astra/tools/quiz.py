@@ -17,6 +17,7 @@ from dataclasses import dataclass, field
 from datetime import datetime
 from typing import Any
 
+from ay_astra.brain import AIBrain
 from ay_astra.storage.json_store import load_json
 from ay_astra.tools.learning import LEARNING_LOG_PATH
 
@@ -38,6 +39,8 @@ class QuizSession:
 
 
 _ACTIVE_QUIZ: QuizSession | None = None
+_LAST_COMPLETED_QUIZ: QuizSession | None = None
+_FEEDBACK_BRAIN = AIBrain()
 
 
 def handle_quiz_command(message: str) -> str:
@@ -55,6 +58,9 @@ def handle_quiz_command(message: str) -> str:
 
     if message in {"/quiz current", "/quiz show"}:
         return show_current_question()
+
+    if message == "/quiz feedback":
+        return give_quiz_feedback()
 
     if message.startswith("/quiz answer "):
         answer = message.removeprefix("/quiz answer ").strip()
@@ -74,6 +80,7 @@ Quiz Mode commands:
 /quiz topic TOPIC                  Start a quiz on any topic
 /quiz current                      Show the current question
 /quiz answer YOUR ANSWER           Answer the current question
+/quiz feedback                     Get feedback on your last completed quiz
 /quiz stop                         Stop the current quiz
 
 Examples:
@@ -125,7 +132,7 @@ def show_current_question() -> str:
 def answer_current_question(answer: str) -> str:
     """Save an answer and move to the next question."""
 
-    global _ACTIVE_QUIZ
+    global _ACTIVE_QUIZ, _LAST_COMPLETED_QUIZ
 
     if _ACTIVE_QUIZ is None:
         return "No active quiz. Start one with /quiz start or /quiz topic TOPIC."
@@ -142,12 +149,47 @@ def answer_current_question(answer: str) -> str:
 
     if session.current_index >= len(session.questions):
         completed_session = session
+        _LAST_COMPLETED_QUIZ = completed_session
         _ACTIVE_QUIZ = None
         return _quiz_finished_message(completed_session)
 
     return (
         "Answer saved. I am not grading automatically yet, but active recall is already doing the work.\n\n"
         + _format_current_question(session)
+    )
+
+
+def give_quiz_feedback() -> str:
+    """Give feedback on the most recently completed quiz."""
+
+    if _ACTIVE_QUIZ is not None:
+        return (
+            "Finish the current quiz first, then ask for feedback.\n"
+            "Use `/quiz current` to see the question or `/quiz stop` to stop."
+        )
+
+    if _LAST_COMPLETED_QUIZ is None:
+        return (
+            "No completed quiz found in this session yet.\n"
+            "Run `/quiz start`, answer the questions, then use `/quiz feedback`."
+        )
+
+    if _FEEDBACK_BRAIN.is_configured():
+        prompt = _build_feedback_prompt(_LAST_COMPLETED_QUIZ)
+        reply = _FEEDBACK_BRAIN.generate(prompt, mode="chat", history=[])
+        if reply.used_llm:
+            return "AI Quiz Feedback:\n\n" + reply.text
+
+        return (
+            "The AI brain feedback attempt failed, so I am using rule-based feedback instead.\n"
+            f"Reason: {reply.error or 'LLM did not return a usable response'}\n\n"
+            + _rule_based_feedback(_LAST_COMPLETED_QUIZ)
+        )
+
+    return (
+        "AI brain is not connected yet, so here is rule-based feedback.\n"
+        "Not full grading, but still useful. We improvise like engineers, not magicians.\n\n"
+        + _rule_based_feedback(_LAST_COMPLETED_QUIZ)
     )
 
 
@@ -238,7 +280,87 @@ def _quiz_finished_message(session: QuizSession) -> str:
     else:
         lines.append("If this is worth tracking, save it: /learn add TOPIC | NOTE")
 
+    lines.append("For feedback on your answers, run: /quiz feedback")
     lines.append("AyAstra note: excellent. The brain grows by retrieval, not by staring at notes like they owe you money.")
+    return "\n".join(lines).strip()
+
+
+def _build_feedback_prompt(session: QuizSession) -> str:
+    """Build a prompt for optional LLM-based quiz feedback."""
+
+    answer_blocks = []
+    for index, answer_data in enumerate(session.answers, start=1):
+        answer_blocks.append(
+            f"{index}. Question: {answer_data['question']}\n"
+            f"   Student answer: {answer_data['answer']}"
+        )
+
+    answers_text = "\n\n".join(answer_blocks)
+
+    return f"""
+Ayanda completed a quiz on: {session.topic}
+Saved note/context: {session.note or 'No note provided'}
+
+Questions and answers:
+{answers_text}
+
+Give supportive feedback in AyAstra's style.
+Rules:
+- Do not use external/current facts.
+- Do not pretend the answer is perfect if it is vague.
+- Be encouraging, witty, and clear.
+- For each answer, say: good part, what to improve, and one stronger example/phrasing.
+- End with 3 revision tips and a tiny mini-challenge.
+""".strip()
+
+
+def _rule_based_feedback(session: QuizSession) -> str:
+    """Give simple feedback without needing an LLM."""
+
+    lines = [
+        f"Quiz Feedback — {session.topic}",
+        "",
+        "Feedback type: rule-based checklist",
+        "Truth note: this is not deep semantic grading. It checks answer effort, clarity signals, and study structure.",
+        "",
+    ]
+
+    for index, answer_data in enumerate(session.answers, start=1):
+        answer = answer_data["answer"].strip()
+        word_count = len(answer.split())
+
+        if word_count < 5:
+            verdict = "Too short. Your brain gave a trailer, not the movie."
+            next_step = "Add a definition plus one example."
+        elif word_count < 15:
+            verdict = "Good start, but still a bit thin."
+            next_step = "Add why it matters or where it is used."
+        else:
+            verdict = "Solid effort. You gave enough detail to work with."
+            next_step = "Now make it sharper with one concrete example or contrast."
+
+        lines.extend(
+            [
+                f"{index}. Question: {answer_data['question']}",
+                f"   Your answer: {answer}",
+                f"   Feedback: {verdict}",
+                f"   Improve by: {next_step}",
+                "",
+            ]
+        )
+
+    lines.extend(
+        [
+            "Overall revision tips:",
+            "1. Use this structure: definition → why it matters → example → common mistake.",
+            "2. If you cannot give an example, you probably do not understand it fully yet. Rude, but useful.",
+            f"3. Ask: /tutor {session.topic}",
+            "",
+            "Mini-challenge:",
+            f"Explain {session.topic} to an imaginary first-year student in under 60 seconds.",
+        ]
+    )
+
     return "\n".join(lines).strip()
 
 

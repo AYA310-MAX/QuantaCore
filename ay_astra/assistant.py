@@ -9,6 +9,7 @@ Later, this router will decide when to call web search, news APIs, or smart-home
 """
 
 from __future__ import annotations
+
 from ay_astra.brain import AIBrain
 from ay_astra.personality import style_reply
 from ay_astra.tools.learning import handle_learning_command
@@ -18,6 +19,7 @@ from ay_astra.tools.reminders import add_reminder, list_reminders
 from ay_astra.tools.voice import handle_voice_command
 from ay_astra.tools.research import get_research_brief
 from ay_astra.tools.tasks import add_task, complete_task, list_tasks
+
 HELP_TEXT = """
 Commands available:
 /help                         Show this help menu
@@ -35,7 +37,10 @@ Commands available:
 /learn reviewed ID            Mark a topic as reviewed
 /quiz start                   Start a quiz from your learning log
 /quiz topic TOPIC             Start a quiz on any topic
+/quiz current                 Show the current quiz question
 /quiz answer YOUR ANSWER      Answer the current quiz question
+/quiz feedback                Get feedback on your last completed quiz
+/quiz stop                    Stop the current quiz
 /task add DESCRIPTION         Add a task
 /task list                    List tasks
 /task done TASK_ID            Mark a task complete
@@ -52,6 +57,7 @@ Examples:
 /tutor APIs
 /learn add APIs | Learned that APIs let apps talk to each other
 /quiz start
+/voice status
 /research AI agents in education
 /brain status
 """.strip()
@@ -102,7 +108,7 @@ def handle_message(message: str) -> str:
     if message.startswith("/quiz"):
         return style_reply(handle_quiz_command(message))
 
-    if message.startswith("/news"): 
+    if message.startswith("/news"):
         topic = message.removeprefix("/news").strip() or "technology"
         return style_reply(get_news_brief(topic))
 

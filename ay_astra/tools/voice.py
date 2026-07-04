@@ -124,7 +124,12 @@ def set_voice_enabled(enabled: bool) -> str:
 
 
 def test_voice() -> str:
-    """Speak a short test line without permanently changing the voice setting."""
+    """Speak a short test line.
+
+    If voice is already enabled, do not speak directly here. `main.py` will
+    speak the returned response. This avoids two back-to-back TTS calls, which
+    can make pyttsx3/Windows audio behave like a tiny dramatic gremlin.
+    """
 
     if not _is_pyttsx3_available():
         return (
@@ -132,13 +137,17 @@ def test_voice() -> str:
             "Exit AyAstra and run: pip install pyttsx3"
         )
 
-    error = _speak_now("AyAstra voice test successful. QuantaCore audio systems are awake.")
+    test_line = "AyAstra voice test successful. QuantaCore audio systems are awake."
+
+    if _VOICE_ENABLED:
+        return test_line
+
+    error = _speak_now(test_line)
 
     if error:
         return f"Voice test failed. Reason: {error}"
 
     return "Voice test sent. If you heard me, QuantaCore audio systems are awake."
-
 
 def speak_response(response_text: str) -> str | None:
     """Speak an assistant response when voice output is enabled.
@@ -185,15 +194,26 @@ def _get_engine() -> Any:
 
 
 def _speak_now(text: str) -> str | None:
+    """Speak text immediately.
+
+    Windows/pyttsx3 can sometimes behave dramatically if the same engine is
+    reused many times. To keep beginner setup reliable, this creates a fresh
+    engine for each spoken response.
+    """
+
     try:
-        engine = _get_engine()
+        import pyttsx3
+
+        engine = pyttsx3.init()
+        engine.setProperty("rate", VOICE_RATE)
+        engine.setProperty("volume", VOICE_VOLUME)
         engine.say(text)
         engine.runAndWait()
+        engine.stop()
         return None
     except Exception as error:
         return str(error)
-
-
+    
 def _clean_for_speech(text: str) -> str:
     """Make terminal output easier to speak aloud."""
 
