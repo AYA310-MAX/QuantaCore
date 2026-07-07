@@ -1226,3 +1226,123 @@ For news, research, recent tech, health, law, finance, or any current fact, AyAs
 
 No fake facts in this lab.
 
+# AyAstra — QuantaCore
+
+AyAstra, codename **QuantaCore**, is Ayanda Dlamini's personal AI assistant project: a Shuri-inspired, JARVIS/Siri-style assistant for learning, planning, research, news updates, and eventually smart-home control.
+
+## Current sprint: Sprint 12 — LLM-style Assistant Chat UI
+
+The dashboard-style interface has been removed. The current UI direction is a focused LLM/chat assistant screen, closer to Claude/ChatGPT/Siri-style chat:
+
+- **AyAstra** at the top.
+- Greeting or motivational quote in the centre.
+- Large ask box near the bottom.
+- Quick action chips like Write, Learn, Code, Life stuff, AI updates, Research.
+- Conversation appears after the first message.
+- Responsive layout for phone, tablet, and desktop browsers.
+- Browser speech output and browser microphone input where supported.
+
+The backend tools still exist, so you can ask:
+
+```text
+/news ai
+/research AI agents in education
+/tutor APIs
+/task add Finish assignment
+/learn add APIs | APIs let apps talk to each other
+```
+
+## Important project workflow rule
+
+When we are still refining one feature, we keep it in the same sprint until Ayanda is satisfied. We do **not** create a new sprint for every visual tweak.
+
+Current UI work stays in:
+
+```text
+Sprint 12 — LLM-style Assistant Chat UI
+```
+
+## Terminal quick start
+
+```bash
+python main.py
+```
+
+## Assistant UI quick start
+
+Run the focused assistant interface:
+
+```bash
+python assistant_ui.py
+```
+
+Then open:
+
+```text
+http://127.0.0.1:8765
+```
+
+## Install requirements
+
+Activate your virtual environment first, then run:
+
+```bash
+pip install -r requirements.txt
+```
+
+## Optional: connect the AI brain
+
+Create a private `.env` file from `.env.example` and fill in:
+
+```text
+LLM_BASE_URL=https://api.openai.com/v1
+LLM_MODEL=your-model-name-here
+LLM_API_KEY=your-private-api-key-here
+LLM_TIMEOUT_SECONDS=30
+```
+
+Never commit `.env` to GitHub.
+
+## Terminal commands
+
+```text
+/help                         Show commands
+/exit                         Close AyAstra
+/brain status                 Check whether the optional LLM brain is connected
+/memory clear                 Clear this session's conversation memory
+/ui                           Show how to launch the assistant chat UI
+/voice status                 Check voice output setup
+/voice on                     Turn voice output on for this session
+/voice off                    Turn voice output off
+/voice test                   Speak a short test line
+/tutor TOPIC                  Explain a topic beginner-style
+/learn add TOPIC | NOTE       Save something you studied
+/learn list                   List saved learning topics
+/learn review                 Show topics to review
+/learn reviewed ID            Mark a topic as reviewed
+/quiz start                   Start a quiz from your learning log
+/quiz topic TOPIC             Start a quiz on any topic
+/quiz current                 Show the current quiz question
+/quiz answer YOUR ANSWER      Answer the current quiz question
+/quiz feedback                Get feedback on your last completed quiz
+/quiz stop                    Stop the current quiz
+/task add DESCRIPTION         Add a task
+/task list                    List tasks
+/task done TASK_ID            Mark a task complete
+/remind add YYYY-MM-DD HH:MM MESSAGE
+/remind list                  List reminders
+/news TOPIC                   Fetch source-backed headlines from verified RSS feeds
+/news sources                 List configured news feeds
+/research TOPIC               Search academic paper metadata with source links
+/research sources             Show configured research sources
+```
+
+## Source/truth rule
+
+For news, research, recent tech, health, law, finance, or any current fact, AyAstra must use valid sources and cite/return source links. If sources are unavailable, AyAstra must say it cannot verify the answer.
+
+No fake facts in this lab.
+
+## Device-lock reality check
+
+A browser-based UI cannot reliably respond while your phone/laptop is locked or closed. For true Siri-like background behaviour, AyAstra will later need a native app, PWA/background service, wake word listener, notifications, and OS permissions.

@@ -26,7 +26,7 @@ Commands available:
 /exit                         Close AyAstra
 /brain status                 Check whether the optional LLM brain is connected
 /memory clear                 Clear this session's conversation memory
-/dashboard                    Show how to launch the local web dashboard
+/ui                           Show how to launch the Siri-like assistant UI
 /voice status                 Check voice output setup
 /voice on                     Turn voice output on for this session
 /voice off                    Turn voice output off
@@ -90,8 +90,8 @@ def handle_message(message: str) -> str:
         _SESSION_HISTORY.clear()
         return style_reply("Session memory cleared. Fresh lab board, fewer fingerprints.")
 
-    if lower_message == "/dashboard":
-        return style_reply(_dashboard_instructions())
+    if lower_message == "/ui":
+        return style_reply(_ui_instructions())
 
     if message.startswith("/voice"):
         return style_reply(handle_voice_command(message))
@@ -126,17 +126,17 @@ def handle_message(message: str) -> str:
     return style_reply(_basic_chat(message))
 
 
-def _dashboard_instructions() -> str:
+def _ui_instructions() -> str:
     return """
-Dashboard UI is a separate local web app.
+AyAstra's focused LLM-style assistant UI is a separate local web app.
 
 To launch it:
-1. Exit AyAstra with /exit.
-2. In the same terminal, run: python dashboard.py
+1. Exit terminal AyAstra with /exit.
+2. In the same terminal, run: python assistant_ui.py
 3. Open this address in your browser: http://127.0.0.1:8765
 
-The dashboard reads your local JSON files for tasks, reminders, and learning logs.
-It runs only on your computer. Very private. Very lab-coded.
+This UI has AyAstra at the top, a greeting/motivational prompt, a large ask box, and quick action chips.
+It runs locally on your computer. Very private. Very lab-coded.
 """.strip()
 
 
