@@ -376,6 +376,168 @@ ASSISTANT_UI_HTML = r'''
       padding: 28px 0;
     }
 
+    .home-content {
+      width: min(100%, 480px);
+      display: grid;
+      justify-items: center;
+      gap: 16px;
+    }
+
+    .quanta-orb {
+      position: relative;
+      width: 154px;
+      height: 154px;
+      display: grid;
+      place-items: center;
+      margin: 0 auto 2px;
+      filter: drop-shadow(0 0 30px rgba(99, 102, 241, 0.34));
+    }
+
+    .quanta-orb::before,
+    .quanta-orb::after {
+      content: "";
+      position: absolute;
+      border-radius: 999px;
+      pointer-events: none;
+    }
+
+    .quanta-orb::before {
+      inset: 8px;
+      background: conic-gradient(
+        from 30deg,
+        rgba(103,232,249,0.08),
+        rgba(99,102,241,0.75),
+        rgba(90,0,96,0.72),
+        rgba(20,184,166,0.78),
+        rgba(103,232,249,0.08)
+      );
+      filter: blur(12px);
+      opacity: 0.72;
+      animation: orbRingSpin 5.6s linear infinite;
+    }
+
+    .quanta-orb::after {
+      inset: 22px;
+      border: 1px solid rgba(255,255,255,0.08);
+      background: radial-gradient(circle, rgba(99,102,241,0.14), transparent 62%);
+      box-shadow: inset 0 0 38px rgba(99,102,241,0.12);
+    }
+
+    .quanta-core {
+      position: relative;
+      z-index: 2;
+      width: 92px;
+      height: 92px;
+      display: grid;
+      place-items: center;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,0.10);
+      background:
+        radial-gradient(circle at 50% 42%, rgba(31,41,55,0.82), rgba(12,17,31,0.96) 62%, rgba(3,7,18,0.98)),
+        linear-gradient(135deg, rgba(99,102,241,0.20), rgba(90,0,96,0.20));
+      box-shadow:
+        inset 0 1px 0 rgba(255,255,255,0.10),
+        inset 0 -18px 36px rgba(0,0,0,0.28),
+        0 0 28px rgba(99,102,241,0.28),
+        0 0 80px rgba(20,184,166,0.10);
+      animation: orbIdle 4.8s ease-in-out infinite;
+    }
+
+    .quanta-core::before {
+      content: "";
+      position: absolute;
+      inset: -18px;
+      border-radius: inherit;
+      background: conic-gradient(
+        from 0deg,
+        transparent 0 16%,
+        rgba(103,232,249,0.95) 21%,
+        rgba(99,102,241,0.95) 30%,
+        transparent 38% 55%,
+        rgba(90,0,96,0.88) 63%,
+        rgba(20,184,166,0.78) 72%,
+        transparent 82% 100%
+      );
+      filter: blur(2px);
+      opacity: 0.86;
+      animation: orbRingSpin 3.2s linear infinite;
+      -webkit-mask: radial-gradient(farthest-side, transparent calc(100% - 9px), #000 calc(100% - 8px));
+      mask: radial-gradient(farthest-side, transparent calc(100% - 9px), #000 calc(100% - 8px));
+    }
+
+    .quanta-core::after {
+      content: "";
+      position: absolute;
+      inset: -30px;
+      border-radius: inherit;
+      border: 1px solid rgba(99,102,241,0.18);
+      opacity: 0.28;
+      transform: scale(0.86);
+    }
+
+    .orb-mic {
+      position: relative;
+      z-index: 3;
+      width: 38px;
+      height: 38px;
+      color: rgba(249,250,251,0.94);
+      stroke-width: 1.9;
+      filter: drop-shadow(0 0 10px rgba(255,255,255,0.18));
+      transition: transform 0.18s ease, color 0.18s ease;
+    }
+
+    .orb-wave {
+      position: absolute;
+      inset: 41px;
+      border-radius: 999px;
+      border: 1px solid rgba(99,102,241,0.28);
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    body.ai-thinking .quanta-core {
+      animation: orbThinking 1.1s ease-in-out infinite;
+    }
+
+    body.ai-speaking .quanta-core {
+      animation: orbSpeaking 0.82s ease-in-out infinite;
+    }
+
+    body.ai-thinking .quanta-core::before,
+    body.ai-speaking .quanta-core::before {
+      animation-duration: 1.35s;
+      opacity: 1;
+    }
+
+    body.ai-thinking .orb-mic,
+    body.ai-speaking .orb-mic {
+      color: white;
+      transform: scale(1.04);
+    }
+
+    body.ai-thinking .orb-wave,
+    body.ai-speaking .orb-wave {
+      animation: orbWave 1.28s ease-out infinite;
+    }
+
+    body.ai-thinking .orb-wave:nth-child(2),
+    body.ai-speaking .orb-wave:nth-child(2) {
+      animation-delay: 0.2s;
+      border-color: rgba(20,184,166,0.36);
+    }
+
+    body.ai-thinking .orb-wave:nth-child(3),
+    body.ai-speaking .orb-wave:nth-child(3) {
+      animation-delay: 0.4s;
+      border-color: rgba(90,0,96,0.34);
+    }
+
+    @keyframes orbRingSpin { to { transform: rotate(360deg); } }
+    @keyframes orbIdle { 50% { transform: translateY(-4px) scale(1.015); } }
+    @keyframes orbThinking { 50% { transform: scale(1.035); box-shadow: inset 0 1px 0 rgba(255,255,255,0.12), inset 0 -18px 36px rgba(0,0,0,0.28), 0 0 38px rgba(99,102,241,0.38), 0 0 88px rgba(20,184,166,0.14); } }
+    @keyframes orbSpeaking { 0%,100% { transform: scale(1); } 35% { transform: scale(1.065); } 70% { transform: scale(0.985); } }
+    @keyframes orbWave { 0% { opacity: 0.72; transform: scale(0.72); } 100% { opacity: 0; transform: scale(1.9); } }
+
     .chat-card {
       width: min(100%, 420px);
       max-width: 480px;
@@ -413,7 +575,10 @@ ASSISTANT_UI_HTML = r'''
       height: 32px;
       flex: 0 0 auto;
       border-radius: 999px;
-      background: radial-gradient(circle at 30% 20%, white 0 5%, var(--teal) 11%, var(--indigo) 42%, var(--violet) 80%);
+      background:
+        radial-gradient(circle at 35% 24%, white 0 6%, rgba(199,210,254,0.8) 10%, transparent 20%),
+        conic-gradient(from 130deg, var(--teal), var(--indigo), var(--violet), var(--gold), var(--teal));
+      box-shadow: 0 0 16px rgba(99,102,241,0.45);
     }
 
     .assistant-title {
@@ -987,6 +1152,25 @@ ASSISTANT_UI_HTML = r'''
     }
 
     @media (max-width: 520px) {
+      .quanta-orb {
+        width: 124px;
+        height: 124px;
+      }
+
+      .quanta-core {
+        width: 76px;
+        height: 76px;
+      }
+
+      .orb-mic {
+        width: 31px;
+        height: 31px;
+      }
+
+      .orb-wave {
+        inset: 34px;
+      }
+
       .top-title { font-size: 20px; }
       .chat-card {
         width: calc(100vw - 24px);
@@ -1037,7 +1221,20 @@ ASSISTANT_UI_HTML = r'''
 
       <section class="page" id="page-home">
         <div class="home-stage">
-          <div>
+          <div class="home-content">
+            <div class="quanta-orb" aria-hidden="true">
+              <div class="orb-wave"></div>
+              <div class="orb-wave"></div>
+              <div class="orb-wave"></div>
+              <div class="quanta-core">
+                <svg class="orb-mic" viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
+                  <path d="M12 3a3 3 0 0 0-3 3v6a3 3 0 0 0 6 0V6a3 3 0 0 0-3-3Z"></path>
+                  <path d="M19 11a7 7 0 0 1-14 0"></path>
+                  <path d="M12 18v3"></path>
+                  <path d="M8 21h8"></path>
+                </svg>
+              </div>
+            </div>
             <section class="chat-card" aria-label="AyAstra chat">
               <header class="chat-card-header">
                 <div class="assistant-meta">
@@ -1443,6 +1640,33 @@ ASSISTANT_UI_HTML = r'''
       renderSettings();
     }
 
+    let orbTimer = null;
+
+    function setOrbMode(mode, duration = 0) {
+      document.body.classList.remove('ai-thinking', 'ai-speaking');
+
+      if (orbTimer) {
+        clearTimeout(orbTimer);
+        orbTimer = null;
+      }
+
+      if (mode === 'thinking') {
+        document.body.classList.add('ai-thinking');
+      }
+
+      if (mode === 'speaking') {
+        document.body.classList.add('ai-speaking');
+      }
+
+      if (duration > 0) {
+        orbTimer = setTimeout(() => setOrbMode('idle'), duration);
+      }
+    }
+
+    function speakingDurationFor(text) {
+      return Math.min(7200, Math.max(1600, String(text || '').length * 24));
+    }
+
     function addTyping() {
       const typingId = crypto.randomUUID();
       state.messages.push({
@@ -1491,6 +1715,7 @@ ASSISTANT_UI_HTML = r'''
       state.attachedImages = [];
       messageInput.value = '';
       renderPages();
+      setOrbMode('thinking');
 
       const typingId = addTyping();
 
@@ -1515,6 +1740,7 @@ ASSISTANT_UI_HTML = r'''
 
         state.conversations[0].preview = data.response.replace(/^AyAstra:\s*/i, '').slice(0, 80);
         renderPages();
+        setOrbMode('speaking', speakingDurationFor(data.response));
       } catch (error) {
         removeTyping(typingId);
         state.messages.push({
@@ -1524,6 +1750,7 @@ ASSISTANT_UI_HTML = r'''
           timestamp: timeNow()
         });
         renderPages();
+        setOrbMode('speaking', 2400);
       }
     }
 
