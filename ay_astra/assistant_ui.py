@@ -1753,28 +1753,462 @@ ASSISTANT_UI_HTML = r'''
       .orb-eye-right { right: 19px; }
     }
 
+
+
+    /* Sprint 12 refinement: Workly-inspired desktop sidebar.
+       Left navigation is calm, dark, rounded, and premium. Mobile keeps bottom nav. */
+    @media (min-width: 921px) {
+      .app-shell {
+        grid-template-columns: 320px minmax(0, 1fr);
+        gap: 0;
+        padding: 24px 0 24px 24px;
+      }
+
+      .workly-sidebar {
+        position: sticky;
+        top: 24px;
+        display: grid;
+        grid-template-rows: auto auto auto auto 1fr auto auto;
+        height: calc(100dvh - 48px);
+        margin: 0;
+        padding: 22px;
+        border: 1px solid rgba(255,255,255,0.10);
+        border-radius: 28px;
+        background:
+          linear-gradient(180deg, rgba(255,255,255,0.035), rgba(255,255,255,0.012)),
+          rgba(12, 13, 18, 0.92);
+        box-shadow:
+          0 30px 80px rgba(0,0,0,0.34),
+          inset 0 1px 0 rgba(255,255,255,0.08);
+        backdrop-filter: blur(22px);
+        overflow: hidden;
+      }
+
+      .workly-sidebar::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        pointer-events: none;
+        background:
+          radial-gradient(circle at 96% 34%, rgba(99,102,241,0.16), transparent 19%),
+          radial-gradient(circle at 0% 100%, rgba(90,0,96,0.14), transparent 24%);
+      }
+
+      .workly-top,
+      .workly-search,
+      .workly-nav,
+      .workly-other,
+      .boost-card,
+      .user-card {
+        position: relative;
+        z-index: 1;
+      }
+
+      .workly-top {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+        padding-bottom: 18px;
+        border-bottom: 1px solid rgba(255,255,255,0.08);
+      }
+
+      .workly-brand {
+        min-height: 38px;
+      }
+
+      .workly-brand .logo {
+        width: 34px;
+        height: 34px;
+        box-shadow: 0 0 24px rgba(99,102,241,0.32);
+      }
+
+      .workly-caption {
+        margin-top: 1px;
+        color: rgba(249,250,251,0.46);
+        font-size: 12px;
+      }
+
+      .workly-collapse,
+      .user-menu {
+        width: 34px;
+        height: 34px;
+        display: grid;
+        place-items: center;
+        border: 1px solid rgba(255,255,255,0.10);
+        border-radius: 10px;
+        color: rgba(249,250,251,0.62);
+        background: rgba(255,255,255,0.035);
+      }
+
+      .workly-collapse svg,
+      .user-menu svg {
+        width: 18px;
+        height: 18px;
+        stroke-width: 1.8;
+      }
+
+      .workly-search {
+        height: 42px;
+        display: grid;
+        grid-template-columns: 20px 1fr auto;
+        align-items: center;
+        gap: 10px;
+        margin: 22px 0 14px;
+        padding: 0 11px;
+        border: 1px solid rgba(255,255,255,0.10);
+        border-radius: 12px;
+        color: rgba(249,250,251,0.44);
+        background: rgba(255,255,255,0.035);
+      }
+
+      .workly-search svg {
+        width: 18px;
+        height: 18px;
+        stroke-width: 1.75;
+      }
+
+      .workly-search input {
+        min-width: 0;
+        width: 100%;
+        height: 100%;
+        border: 0;
+        outline: 0;
+        color: var(--text);
+        background: transparent;
+        font-size: 13px;
+      }
+
+      .workly-search input::placeholder {
+        color: rgba(249,250,251,0.42);
+      }
+
+      .workly-search span {
+        min-width: 24px;
+        height: 24px;
+        display: grid;
+        place-items: center;
+        border: 1px solid rgba(255,255,255,0.08);
+        border-radius: 7px;
+        color: rgba(249,250,251,0.45);
+        font-size: 12px;
+      }
+
+      .workly-nav {
+        gap: 8px;
+      }
+
+      .workly-nav .nav-item {
+        height: 42px;
+        padding: 0 12px;
+        border-radius: 12px;
+        color: rgba(249,250,251,0.58);
+        font-size: 14px;
+      }
+
+      .workly-nav .nav-item svg {
+        width: 21px;
+        height: 21px;
+      }
+
+      .workly-nav .nav-item:hover {
+        color: rgba(249,250,251,0.88);
+        background: rgba(255,255,255,0.045);
+      }
+
+      .workly-nav .nav-item.active {
+        color: white;
+        border-color: rgba(255,255,255,0.10);
+        background:
+          linear-gradient(90deg, rgba(255,255,255,0.10), rgba(99,102,241,0.24) 72%, rgba(99,102,241,0.55)),
+          rgba(255,255,255,0.055);
+        box-shadow:
+          12px 0 28px rgba(99,102,241,0.22),
+          inset 0 1px 0 rgba(255,255,255,0.08);
+      }
+
+      .workly-other {
+        margin-top: 22px;
+        padding-top: 20px;
+        border-top: 1px solid rgba(255,255,255,0.08);
+      }
+
+      .workly-other .recent-title {
+        margin: 0 0 10px;
+        color: rgba(249,250,251,0.42);
+      }
+
+      .workly-other-item {
+        width: 100%;
+        height: 38px;
+        display: flex;
+        align-items: center;
+        padding: 0 12px;
+        border: 0;
+        border-radius: 10px;
+        color: rgba(249,250,251,0.50);
+        background: transparent;
+        text-align: left;
+        font-size: 13px;
+      }
+
+      .workly-other-item:hover {
+        color: rgba(249,250,251,0.82);
+        background: rgba(255,255,255,0.04);
+      }
+
+      .workly-spacer {
+        min-height: 18px;
+      }
+
+      .boost-card {
+        display: grid;
+        gap: 10px;
+        padding: 16px;
+        border: 1px solid rgba(255,255,255,0.10);
+        border-radius: 18px;
+        background:
+          radial-gradient(circle at 85% 100%, rgba(99,102,241,0.22), transparent 42%),
+          rgba(255,255,255,0.035);
+      }
+
+      .boost-title {
+        color: white;
+        font-size: 15px;
+        font-weight: 650;
+      }
+
+      .boost-text {
+        color: rgba(249,250,251,0.50);
+        font-size: 12px;
+        line-height: 1.45;
+      }
+
+      .boost-button {
+        height: 40px;
+        border: 0;
+        border-radius: 11px;
+        color: white;
+        background: linear-gradient(135deg, #7C3AED, #4F46E5);
+        box-shadow: 0 12px 26px rgba(99,102,241,0.28);
+        font-weight: 620;
+      }
+
+      .user-card {
+        min-height: 58px;
+        display: grid;
+        grid-template-columns: 40px 1fr 34px;
+        align-items: center;
+        gap: 10px;
+        margin-top: 14px;
+        padding: 9px;
+        border: 1px solid rgba(255,255,255,0.10);
+        border-radius: 16px;
+        background: rgba(255,255,255,0.035);
+      }
+
+      .user-avatar-small {
+        width: 40px;
+        height: 40px;
+        display: grid;
+        place-items: center;
+        border-radius: 999px;
+        color: white;
+        font-size: 13px;
+        font-weight: 700;
+        background: radial-gradient(circle at 32% 24%, rgba(255,255,255,0.95) 0 5%, #8B5CF6 18%, #390040 74%);
+      }
+
+      .user-copy {
+        min-width: 0;
+        color: rgba(249,250,251,0.88);
+        font-size: 13px;
+        font-weight: 600;
+      }
+
+      .user-copy span {
+        display: block;
+        margin-top: 2px;
+        overflow: hidden;
+        color: rgba(249,250,251,0.42);
+        font-size: 12px;
+        font-weight: 400;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+
+      .main-wrap {
+        width: min(100%, 1120px);
+        margin: 0 auto;
+        padding: 18px 28px 34px;
+      }
+
+      .topbar {
+        width: min(100%, 880px);
+      }
+
+      .bottom-nav {
+        display: none;
+      }
+    }
+
+    @media (max-width: 920px) {
+      .app-shell {
+        grid-template-columns: 1fr;
+        padding: 0;
+      }
+
+      .sidebar {
+        display: none;
+      }
+
+      .bottom-nav {
+        display: grid;
+      }
+    }
+
+
+
+    /* Sprint 12 refinement: responsive left sidebar drawer.
+       The navigation is called Sidebar on all devices. On phones it opens from the left and can be closed. */
+    .sidebar-open-button {
+      display: none;
+      flex: 0 0 auto;
+    }
+
+    .sidebar-backdrop {
+      display: none;
+    }
+
+    @media (max-width: 920px) {
+      .app-shell {
+        grid-template-columns: 1fr;
+        padding: 0;
+      }
+
+      .sidebar-open-button {
+        display: grid;
+      }
+
+      .topbar {
+        width: 100%;
+        justify-content: flex-start;
+      }
+
+      .top-brand {
+        flex: 1;
+      }
+
+      .sidebar-backdrop {
+        position: fixed;
+        inset: 0;
+        z-index: 39;
+        display: block;
+        background: rgba(0, 0, 0, 0.54);
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 180ms ease;
+        backdrop-filter: blur(4px);
+      }
+
+      body.sidebar-open .sidebar-backdrop {
+        opacity: 1;
+        pointer-events: auto;
+      }
+
+      .workly-sidebar,
+      .sidebar {
+        position: fixed;
+        top: 12px;
+        left: 12px;
+        bottom: 12px;
+        z-index: 40;
+        width: min(86vw, 320px);
+        height: auto;
+        display: grid;
+        transform: translateX(calc(-100% - 24px));
+        transition: transform 220ms cubic-bezier(.2,.8,.2,1);
+        border-radius: 28px;
+      }
+
+      body.sidebar-open .workly-sidebar,
+      body.sidebar-open .sidebar {
+        transform: translateX(0);
+      }
+
+      .workly-collapse {
+        display: grid;
+      }
+
+      .bottom-nav {
+        display: none;
+      }
+
+      .main-wrap {
+        padding-bottom: calc(20px + var(--safe-bottom));
+      }
+    }
+
   </style>
 </head>
 <body data-page="home">
   <div class="app-shell">
-    <aside class="sidebar" aria-label="Desktop navigation">
-      <div class="sidebar-brand">
-        <div class="logo">A</div>
-        <div class="app-name">AyAstra</div>
+    <aside class="sidebar workly-sidebar" aria-label="Sidebar navigation">
+      <div class="workly-top">
+        <div class="sidebar-brand workly-brand">
+          <div class="logo">A</div>
+          <div>
+            <div class="app-name">AyAstra</div>
+            <div class="workly-caption">QuantaCore</div>
+          </div>
+        </div>
+        <button class="workly-collapse" type="button" title="Close sidebar" aria-label="Close sidebar">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M9 6l6 6-6 6"/></svg>
+        </button>
       </div>
 
-      <nav class="nav-list" id="sidebarNav"></nav>
-
-      <div>
-        <div class="recent-title">Recent chats</div>
-        <div class="recent-list" id="recentList"></div>
+      <div class="workly-search" role="search">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+        <input id="sidebarSearch" placeholder="Search..." />
+        <span>⌘</span>
       </div>
 
-      <div class="status-chip">Ready to help</div>
+      <nav class="nav-list workly-nav" id="sidebarNav"></nav>
+
+      <div class="workly-other">
+        <div class="recent-title">Other</div>
+        <button type="button" class="workly-other-item">Documentation</button>
+        <button type="button" class="workly-other-item">Inbox</button>
+        <button type="button" class="workly-other-item">Support</button>
+      </div>
+
+      <div class="workly-spacer"></div>
+
+      <div class="boost-card">
+        <div class="boost-title">Boost with AI</div>
+        <div class="boost-text">Source-backed replies, study help, and planning tools in one focused interface.</div>
+        <button type="button" class="boost-button">Open QuantaCore</button>
+      </div>
+
+      <div class="user-card">
+        <div class="user-avatar-small">AD</div>
+        <div class="user-copy">
+          <div>Ayanda D.</div>
+          <span>Software Engineering</span>
+        </div>
+        <button type="button" class="user-menu" aria-label="User menu">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="m6 9 6 6 6-6"/></svg>
+        </button>
+      </div>
     </aside>
+
+    <div class="sidebar-backdrop" id="sidebarBackdrop" aria-hidden="true"></div>
 
     <main class="main-wrap">
       <header class="topbar">
+        <button class="icon-btn sidebar-open-button" id="sidebarOpenButton" type="button" aria-label="Open sidebar" title="Open sidebar">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M4 6h16"/><path d="M4 12h16"/><path d="M4 18h16"/></svg>
+        </button>
         <div class="top-brand">
           <div class="logo">A</div>
           <div class="top-title" id="pageTitle">HOME</div>
@@ -1992,6 +2426,27 @@ ASSISTANT_UI_HTML = r'''
     const fileFilters = document.getElementById('fileFilters');
     const fileGrid = document.getElementById('fileGrid');
     const settingsGrid = document.getElementById('settingsGrid');
+    const sidebarOpenButton = document.getElementById('sidebarOpenButton');
+    const sidebarBackdrop = document.getElementById('sidebarBackdrop');
+    const sidebarCloseButton = document.querySelector('.workly-collapse');
+
+    function openSidebar() {
+      document.body.classList.add('sidebar-open');
+      sidebarOpenButton?.setAttribute('aria-expanded', 'true');
+    }
+
+    function closeSidebar() {
+      document.body.classList.remove('sidebar-open');
+      sidebarOpenButton?.setAttribute('aria-expanded', 'false');
+    }
+
+    sidebarOpenButton?.addEventListener('click', openSidebar);
+    sidebarBackdrop?.addEventListener('click', closeSidebar);
+    sidebarCloseButton?.addEventListener('click', closeSidebar);
+
+    document.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape') closeSidebar();
+    });
 
     document.querySelector('[data-page-target="settings"]').innerHTML = icons.settings;
     fileButton.innerHTML = icons.paperclip;
@@ -2049,7 +2504,10 @@ ASSISTANT_UI_HTML = r'''
       bottomNav.innerHTML = bottomHtml;
 
       document.querySelectorAll('[data-nav]').forEach(button => {
-        button.addEventListener('click', () => setPage(button.dataset.nav));
+        button.addEventListener('click', () => {
+          setPage(button.dataset.nav);
+          closeSidebar();
+        });
       });
     }
 
@@ -2156,7 +2614,10 @@ ASSISTANT_UI_HTML = r'''
       `).join('');
 
       document.querySelectorAll('[data-page-target]').forEach(button => {
-        button.addEventListener('click', () => setPage(button.dataset.pageTarget));
+        button.addEventListener('click', () => {
+          setPage(button.dataset.pageTarget);
+          closeSidebar();
+        });
       });
     }
 
