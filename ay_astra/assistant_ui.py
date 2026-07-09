@@ -1187,6 +1187,572 @@ ASSISTANT_UI_HTML = r'''
       }
       .bubble { max-width: 86%; }
     }
+
+
+    /* Sprint 12 refinement: Echo Mind-inspired mobile-first visual language.
+       This keeps AyAstra minimal, purple, glassy, and app-like without returning to a dashboard. */
+    body {
+      background:
+        radial-gradient(circle at 50% -4%, rgba(139, 92, 246, 0.28), transparent 32%),
+        radial-gradient(circle at 18% 14%, rgba(90, 0, 96, 0.48), transparent 30%),
+        radial-gradient(circle at 82% 18%, rgba(99, 102, 241, 0.22), transparent 28%),
+        radial-gradient(circle at 50% 105%, rgba(20, 184, 166, 0.12), transparent 28%),
+        linear-gradient(135deg, #080511 0%, #140720 48%, #090A18 100%);
+    }
+
+    body::before {
+      opacity: 0.18;
+      background:
+        radial-gradient(circle at 20% 20%, rgba(255,255,255,0.08) 0 1px, transparent 1.4px),
+        radial-gradient(circle at 80% 30%, rgba(236,92,255,0.12) 0 1px, transparent 1.6px),
+        radial-gradient(circle at 50% 85%, rgba(99,102,241,0.13) 0 1px, transparent 1.6px);
+      background-size: 110px 110px, 180px 180px, 240px 240px;
+    }
+
+    .app-shell {
+      grid-template-columns: 1fr;
+    }
+
+    .sidebar {
+      display: none;
+    }
+
+    .main-wrap {
+      width: min(100%, 1240px);
+      margin: 0 auto;
+      padding-bottom: calc(92px + var(--safe-bottom));
+    }
+
+    .topbar {
+      width: min(100%, 520px);
+      margin: 0 auto;
+    }
+
+    .top-title {
+      font-size: 21px;
+      letter-spacing: -0.025em;
+    }
+
+    .home-stage {
+      min-height: calc(100dvh - 178px);
+      align-items: center;
+      padding: 20px 0 26px;
+    }
+
+    .home-content {
+      width: min(100%, 430px);
+      gap: 14px;
+    }
+
+    .quanta-orb {
+      width: 132px;
+      height: 132px;
+      margin-bottom: -2px;
+      filter: drop-shadow(0 0 26px rgba(139, 92, 246, 0.42));
+    }
+
+    .quanta-orb::before {
+      inset: 10px;
+      background: conic-gradient(
+        from 20deg,
+        rgba(103,232,249,0.04),
+        rgba(139,92,246,0.88),
+        rgba(236,92,255,0.58),
+        rgba(20,184,166,0.56),
+        rgba(103,232,249,0.04)
+      );
+      filter: blur(10px);
+      opacity: 0.64;
+    }
+
+    .quanta-core {
+      width: 82px;
+      height: 82px;
+      background:
+        radial-gradient(circle at 50% 42%, rgba(31, 41, 55, 0.76), rgba(12, 17, 31, 0.96) 63%, rgba(3, 7, 18, 0.98)),
+        linear-gradient(135deg, rgba(99,102,241,0.16), rgba(90,0,96,0.18));
+      box-shadow:
+        inset 0 1px 0 rgba(255,255,255,0.10),
+        inset 0 -16px 32px rgba(0,0,0,0.30),
+        0 0 28px rgba(139,92,246,0.32),
+        0 0 70px rgba(20,184,166,0.08);
+    }
+
+    .orb-mic {
+      width: 33px;
+      height: 33px;
+    }
+
+    .orb-wave {
+      inset: 36px;
+    }
+
+    .chat-card {
+      width: min(100%, 420px);
+      min-height: min(690px, calc(100dvh - 190px));
+      max-height: calc(100dvh - 190px);
+      border-radius: 32px;
+      border-color: rgba(255,255,255,0.18);
+      background:
+        linear-gradient(180deg, rgba(58, 27, 86, 0.78), rgba(18, 10, 34, 0.88) 46%, rgba(9, 10, 24, 0.92)),
+        rgba(31, 41, 55, 0.84);
+      box-shadow:
+        0 28px 80px rgba(0,0,0,0.34),
+        0 0 70px rgba(90,0,96,0.28),
+        inset 0 1px 0 rgba(255,255,255,0.12);
+    }
+
+    .chat-card-header {
+      border-bottom: 0;
+      padding: 17px 18px 10px;
+    }
+
+    .assistant-avatar {
+      width: 34px;
+      height: 34px;
+      background:
+        radial-gradient(circle at 36% 24%, white 0 5%, rgba(199,210,254,0.85) 9%, transparent 20%),
+        conic-gradient(from 140deg, var(--teal), #8B5CF6, var(--violet), var(--gold), var(--teal));
+    }
+
+    .assistant-title {
+      font-size: 14px;
+    }
+
+    .assistant-subtitle {
+      font-size: 12px;
+    }
+
+    .status-chip {
+      height: 23px;
+      font-size: 12px;
+      background: rgba(20,184,166,0.10);
+      border-color: rgba(20,184,166,0.18);
+    }
+
+    .assistant-shortcuts {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      padding: 8px 18px 12px;
+    }
+
+    .shortcut-card {
+      min-height: 104px;
+      display: grid;
+      place-items: center;
+      align-content: center;
+      gap: 10px;
+      padding: 14px 10px;
+      border: 1px solid rgba(255,255,255,0.10);
+      border-radius: 20px;
+      color: rgba(249,250,251,0.88);
+      background: rgba(255,255,255,0.055);
+      text-align: center;
+      font-size: 12px;
+      line-height: 1.25;
+    }
+
+    .shortcut-card:hover {
+      background: rgba(255,255,255,0.08);
+      transform: translateY(-1px);
+    }
+
+    .shortcut-icon {
+      width: 34px;
+      height: 34px;
+      display: grid;
+      place-items: center;
+      color: rgba(249,250,251,0.86);
+    }
+
+    .shortcut-icon svg {
+      width: 24px;
+      height: 24px;
+      stroke-width: 1.75;
+    }
+
+    .topic-strip {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 8px;
+      padding: 0 18px 13px;
+    }
+
+    .topic-strip button {
+      height: 34px;
+      border: 1px solid rgba(255,255,255,0.09);
+      border-radius: 12px;
+      color: rgba(249,250,251,0.72);
+      background: rgba(255,255,255,0.04);
+      font-size: 12px;
+    }
+
+    .messages {
+      padding: 14px 18px;
+    }
+
+    .message-row.assistant .bubble {
+      background: rgba(255,255,255,0.065);
+      border-color: rgba(139,92,246,0.18);
+    }
+
+    .message-row.user .bubble {
+      background: linear-gradient(135deg, #7C3AED, #6366F1);
+    }
+
+    .composer-zone {
+      padding: 12px 14px 14px;
+      background: linear-gradient(180deg, transparent, rgba(8, 5, 17, 0.64));
+      border-top: 0;
+    }
+
+    .input-bar {
+      min-height: 60px;
+      border-radius: 22px;
+      background: rgba(255,255,255,0.07);
+      border-color: rgba(255,255,255,0.12);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.10);
+    }
+
+    .message-input {
+      background: rgba(10, 9, 22, 0.44);
+      border-color: rgba(255,255,255,0.08);
+      border-radius: 14px;
+    }
+
+    .send-button {
+      background: linear-gradient(135deg, #8B5CF6, #6366F1);
+      box-shadow: 0 8px 24px rgba(99,102,241,0.26);
+    }
+
+    .prompt-chips {
+      width: min(100%, 420px);
+      margin-top: 14px;
+    }
+
+    .prompt-chip {
+      height: 36px;
+      border-radius: 13px;
+      background: rgba(255,255,255,0.045);
+      border-color: rgba(255,255,255,0.10);
+    }
+
+    .bottom-nav {
+      display: grid;
+      left: 50%;
+      right: auto;
+      width: min(calc(100% - 28px), 420px);
+      transform: translateX(-50%);
+      bottom: 12px;
+      height: calc(62px + var(--safe-bottom));
+      border: 1px solid rgba(255,255,255,0.13);
+      border-radius: 22px;
+      background: rgba(17, 12, 32, 0.82);
+      box-shadow: 0 18px 60px rgba(0,0,0,0.32);
+    }
+
+    .bottom-tab.active {
+      color: #A78BFA;
+    }
+
+    .page-inner {
+      width: min(100%, 860px);
+    }
+
+    .conversation-item,
+    .file-card,
+    .settings-card {
+      background: rgba(31, 20, 52, 0.72);
+      border-color: rgba(255,255,255,0.10);
+      box-shadow: 0 18px 44px rgba(0,0,0,0.16);
+    }
+
+    @media (min-width: 921px) {
+      .bottom-nav {
+        display: grid;
+      }
+    }
+
+    @media (max-width: 520px) {
+      .home-content {
+        width: 100%;
+      }
+
+      .quanta-orb {
+        width: 112px;
+        height: 112px;
+      }
+
+      .quanta-core {
+        width: 70px;
+        height: 70px;
+      }
+
+      .orb-mic {
+        width: 28px;
+        height: 28px;
+      }
+
+      .orb-wave {
+        inset: 31px;
+      }
+
+      .assistant-shortcuts {
+        gap: 10px;
+        padding-left: 14px;
+        padding-right: 14px;
+      }
+
+      .shortcut-card {
+        min-height: 92px;
+      }
+
+      .topic-strip {
+        padding-left: 14px;
+        padding-right: 14px;
+      }
+    }
+
+
+
+    /* Sprint 12 refinement: cute AyAstra bubble core.
+       Inspired by the supplied character-like orb references, but built as an original CSS visual. */
+    .quanta-orb {
+      width: 156px;
+      height: 156px;
+      filter: drop-shadow(0 0 34px rgba(139, 92, 246, 0.44));
+    }
+
+    .quanta-orb::before {
+      inset: -2px;
+      border: 0;
+      background:
+        radial-gradient(circle at 50% 50%, rgba(99,102,241,0.18), transparent 58%),
+        conic-gradient(from 130deg, rgba(103,232,249,0.04), rgba(139,92,246,0.34), rgba(236,92,255,0.26), rgba(20,184,166,0.22), rgba(103,232,249,0.04));
+      filter: blur(16px);
+      opacity: 0.72;
+      animation: cuteHaloSpin 8s linear infinite;
+      transform: none;
+    }
+
+    .quanta-orb::after {
+      inset: 8px;
+      border: 1px solid rgba(255,255,255,0.07);
+      background:
+        radial-gradient(circle at 42% 28%, rgba(255,255,255,0.12), transparent 20%),
+        radial-gradient(circle at 50% 55%, rgba(99,102,241,0.12), transparent 64%);
+      box-shadow:
+        inset 0 0 34px rgba(255,255,255,0.035),
+        0 0 46px rgba(99,102,241,0.14);
+      transform: none;
+      animation: cuteOuterBreathe 5.4s ease-in-out infinite;
+    }
+
+    .quanta-core {
+      width: 108px;
+      height: 108px;
+      overflow: hidden;
+      border: 1px solid rgba(255,255,255,0.11);
+      background:
+        radial-gradient(circle at 32% 22%, rgba(255,255,255,0.26), transparent 18%),
+        radial-gradient(circle at 62% 62%, rgba(236,92,255,0.46), transparent 42%),
+        radial-gradient(circle at 45% 72%, rgba(20,184,166,0.30), transparent 46%),
+        linear-gradient(180deg, rgba(139,92,246,0.72), rgba(49,46,129,0.92) 52%, rgba(15,23,42,0.98));
+      box-shadow:
+        inset 0 1px 0 rgba(255,255,255,0.18),
+        inset 0 -22px 34px rgba(12,17,31,0.35),
+        0 0 28px rgba(139,92,246,0.48),
+        0 0 88px rgba(236,92,255,0.20);
+      animation: cuteOrbIdle 4.8s ease-in-out infinite;
+    }
+
+    .quanta-core::before {
+      content: "";
+      position: absolute;
+      inset: -24px;
+      border-radius: inherit;
+      background:
+        radial-gradient(ellipse at 46% 42%, rgba(103,232,249,0.50), transparent 34%),
+        radial-gradient(ellipse at 58% 52%, rgba(236,92,255,0.48), transparent 38%),
+        radial-gradient(ellipse at 46% 70%, rgba(20,184,166,0.34), transparent 40%);
+      filter: blur(16px);
+      opacity: 0.72;
+      mix-blend-mode: screen;
+      animation: cuteAuraShift 5.8s ease-in-out infinite alternate;
+      -webkit-mask: none;
+      mask: none;
+    }
+
+    .quanta-core::after {
+      content: "";
+      position: absolute;
+      inset: 1px;
+      border-radius: inherit;
+      background:
+        radial-gradient(circle at 32% 18%, rgba(255,255,255,0.18), transparent 17%),
+        linear-gradient(180deg, rgba(255,255,255,0.10), transparent 42%);
+      border: 1px solid rgba(255,255,255,0.06);
+      opacity: 1;
+    }
+
+    .orb-face {
+      position: absolute;
+      z-index: 5;
+      left: 50%;
+      top: 48%;
+      width: 74px;
+      height: 46px;
+      transform: translate(-50%, -50%);
+      border-radius: 999px;
+      background:
+        radial-gradient(ellipse at 48% 44%, rgba(103,232,249,0.52), rgba(236,92,255,0.34) 58%, rgba(15,23,42,0.08) 80%);
+      box-shadow:
+        0 0 22px rgba(103,232,249,0.20),
+        inset 0 1px 0 rgba(255,255,255,0.09);
+      animation: faceFloat 5s ease-in-out infinite;
+    }
+
+    .orb-eye {
+      position: absolute;
+      top: 12px;
+      width: 8px;
+      height: 22px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.95);
+      box-shadow:
+        0 0 10px rgba(255,255,255,0.42),
+        0 0 16px rgba(103,232,249,0.26);
+      animation: cuteBlink 5.6s ease-in-out infinite;
+    }
+
+    .orb-eye-left { left: 23px; }
+    .orb-eye-right { right: 23px; }
+
+    .orb-smile {
+      position: absolute;
+      left: 50%;
+      bottom: 8px;
+      width: 18px;
+      height: 8px;
+      transform: translateX(-50%);
+      border-bottom: 2px solid rgba(255,255,255,0.55);
+      border-radius: 0 0 999px 999px;
+      opacity: 0.36;
+    }
+
+    .orb-blush {
+      position: absolute;
+      top: 25px;
+      width: 14px;
+      height: 7px;
+      border-radius: 999px;
+      background: rgba(236,92,255,0.20);
+      filter: blur(3px);
+      opacity: 0.42;
+    }
+
+    .orb-blush-left { left: 10px; }
+    .orb-blush-right { right: 10px; }
+
+    .orb-particles {
+      position: absolute;
+      inset: 0;
+      z-index: 4;
+      pointer-events: none;
+    }
+
+    .orb-particles span {
+      position: absolute;
+      width: 3px;
+      height: 3px;
+      border-radius: 999px;
+      background: rgba(236,92,255,0.72);
+      box-shadow: 0 0 10px rgba(236,92,255,0.52);
+      opacity: 0;
+    }
+
+    .orb-particles span:nth-child(1) { left: 40%; top: 16%; }
+    .orb-particles span:nth-child(2) { left: 52%; top: 11%; background: rgba(103,232,249,0.72); }
+    .orb-particles span:nth-child(3) { left: 61%; top: 20%; }
+    .orb-particles span:nth-child(4) { left: 35%; top: 24%; background: rgba(20,184,166,0.70); }
+    .orb-particles span:nth-child(5) { left: 56%; top: 28%; }
+    .orb-particles span:nth-child(6) { left: 47%; top: 19%; background: rgba(199,148,14,0.68); }
+
+    body.ai-thinking .quanta-core,
+    body.ai-speaking .quanta-core {
+      animation: cuteOrbSpeak 1.05s ease-in-out infinite;
+    }
+
+    body.ai-thinking .orb-face,
+    body.ai-speaking .orb-face {
+      animation: cuteFaceTalk 0.9s ease-in-out infinite;
+    }
+
+    body.ai-thinking .orb-eye,
+    body.ai-speaking .orb-eye {
+      animation: cuteEyeTalk 1.1s ease-in-out infinite;
+    }
+
+    body.ai-thinking .orb-smile,
+    body.ai-speaking .orb-smile {
+      opacity: 0.76;
+      animation: cuteMouthTalk 0.72s ease-in-out infinite;
+    }
+
+    body.ai-thinking .orb-particles span,
+    body.ai-speaking .orb-particles span {
+      animation: cuteParticles 1.65s ease-out infinite;
+    }
+
+    body.ai-thinking .orb-particles span:nth-child(2),
+    body.ai-speaking .orb-particles span:nth-child(2) { animation-delay: 0.16s; }
+    body.ai-thinking .orb-particles span:nth-child(3),
+    body.ai-speaking .orb-particles span:nth-child(3) { animation-delay: 0.32s; }
+    body.ai-thinking .orb-particles span:nth-child(4),
+    body.ai-speaking .orb-particles span:nth-child(4) { animation-delay: 0.48s; }
+    body.ai-thinking .orb-particles span:nth-child(5),
+    body.ai-speaking .orb-particles span:nth-child(5) { animation-delay: 0.64s; }
+    body.ai-thinking .orb-particles span:nth-child(6),
+    body.ai-speaking .orb-particles span:nth-child(6) { animation-delay: 0.80s; }
+
+    @keyframes cuteHaloSpin { to { transform: rotate(360deg); } }
+    @keyframes cuteOuterBreathe { 50% { transform: scale(1.035); opacity: 0.92; } }
+    @keyframes cuteOrbIdle { 50% { transform: translateY(-5px) scale(1.02); } }
+    @keyframes cuteAuraShift { to { transform: translate3d(5px, -4px, 0) rotate(12deg); filter: blur(18px) hue-rotate(22deg); } }
+    @keyframes faceFloat { 50% { transform: translate(-50%, calc(-50% - 2px)); } }
+    @keyframes cuteBlink { 0%, 92%, 100% { transform: scaleY(1); } 95% { transform: scaleY(0.16); } }
+    @keyframes cuteOrbSpeak { 0%,100% { transform: scale(1); } 50% { transform: scale(1.045); } }
+    @keyframes cuteFaceTalk { 0%,100% { transform: translate(-50%, -50%) scale(1); } 50% { transform: translate(-50%, calc(-50% - 2px)) scale(1.03); } }
+    @keyframes cuteEyeTalk { 0%,100% { height: 22px; } 50% { height: 18px; transform: translateY(2px); } }
+    @keyframes cuteMouthTalk { 0%,100% { width: 16px; height: 7px; } 50% { width: 24px; height: 10px; } }
+    @keyframes cuteParticles { 0% { opacity: 0; transform: translateY(0) scale(0.7); } 25% { opacity: 0.85; } 100% { opacity: 0; transform: translateY(-34px) scale(1.25); } }
+
+    @media (max-width: 520px) {
+      .quanta-orb {
+        width: 128px;
+        height: 128px;
+      }
+
+      .quanta-core {
+        width: 88px;
+        height: 88px;
+      }
+
+      .orb-face {
+        width: 62px;
+        height: 39px;
+      }
+
+      .orb-eye {
+        top: 10px;
+        height: 19px;
+      }
+
+      .orb-eye-left { left: 19px; }
+      .orb-eye-right { right: 19px; }
+    }
+
   </style>
 </head>
 <body data-page="home">
@@ -1227,12 +1793,16 @@ ASSISTANT_UI_HTML = r'''
               <div class="orb-wave"></div>
               <div class="orb-wave"></div>
               <div class="quanta-core">
-                <svg class="orb-mic" viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
-                  <path d="M12 3a3 3 0 0 0-3 3v6a3 3 0 0 0 6 0V6a3 3 0 0 0-3-3Z"></path>
-                  <path d="M19 11a7 7 0 0 1-14 0"></path>
-                  <path d="M12 18v3"></path>
-                  <path d="M8 21h8"></path>
-                </svg>
+                <div class="orb-face" aria-hidden="true">
+                  <span class="orb-eye orb-eye-left"></span>
+                  <span class="orb-eye orb-eye-right"></span>
+                  <span class="orb-smile"></span>
+                  <span class="orb-blush orb-blush-left"></span>
+                  <span class="orb-blush orb-blush-right"></span>
+                </div>
+                <div class="orb-particles" aria-hidden="true">
+                  <span></span><span></span><span></span><span></span><span></span><span></span>
+                </div>
               </div>
             </div>
             <section class="chat-card" aria-label="AyAstra chat">
@@ -1246,6 +1816,24 @@ ASSISTANT_UI_HTML = r'''
                 </div>
                 <div class="status-chip">Online</div>
               </header>
+
+              <div class="assistant-shortcuts" aria-label="AyAstra quick actions">
+                <button class="shortcut-card" type="button" data-prompt="hello">
+                  <span class="shortcut-icon">${icons.chats}</span>
+                  <span>Chat with AyAstra</span>
+                </button>
+                <button class="shortcut-card" type="button" data-prompt="I want to talk to AyAstra by voice. Show me what voice features are available.">
+                  <span class="shortcut-icon">${icons.mic}</span>
+                  <span>Talk with AyAstra</span>
+                </button>
+              </div>
+
+              <div class="topic-strip" aria-label="Topics">
+                <button type="button" data-prompt="/news ai">AI</button>
+                <button type="button" data-prompt="/tutor Python classes">Learn</button>
+                <button type="button" data-prompt="Explain this coding concept step by step">Code</button>
+                <button type="button" data-prompt="Help me plan my day">Life</button>
+              </div>
 
               <div class="messages" id="messages"></div>
 
@@ -1316,6 +1904,7 @@ ASSISTANT_UI_HTML = r'''
       paperclip: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="m21.4 11.6-8.5 8.5a6 6 0 0 1-8.5-8.5l9.2-9.2a4 4 0 0 1 5.7 5.7l-9.2 9.2a2 2 0 1 1-2.8-2.8l8.5-8.5"/></svg>',
       image: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="8" cy="10" r="2"/><path d="m21 15-4.5-4.5L9 18"/></svg>',
       globe: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="12" cy="12" r="10"/><path d="M2 12h20"/><path d="M12 2a15 15 0 0 1 0 20"/><path d="M12 2a15 15 0 0 0 0 20"/></svg>',
+      mic: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M12 3a3 3 0 0 0-3 3v6a3 3 0 0 0 6 0V6a3 3 0 0 0-3-3Z"/><path d="M19 11a7 7 0 0 1-14 0"/><path d="M12 18v3"/><path d="M8 21h8"/></svg>',
       send: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="m22 2-7 20-4-9-9-4Z"/><path d="M22 2 11 13"/></svg>',
       file: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8Z"/><path d="M14 2v6h6"/></svg>',
       x: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>',
