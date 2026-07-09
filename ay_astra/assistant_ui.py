@@ -22,7 +22,7 @@ import webbrowser
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from typing import Any
 
-from ay_astra.tools.assistant import handle_message
+from ay_astra.assistant import handle_message
 
 HOST = "127.0.0.1"
 PORT = 8765

@@ -994,3 +994,20 @@ No fake facts in this lab.
 - Make the first Git commit.
 - Next sprint: connect an LLM API for better conversation while keeping source rules.
 
+## 2026-07-07 — Sprint 12 LLM-style Assistant Chat UI
+
+### What changed
+- Removed the dashboard-style UI direction.
+- Removed dashboard files and old dashboard documentation.
+- Kept the focused assistant UI in `assistant_ui.py` and `ay_astra/assistant_ui.py`.
+- Changed the UI to look more like a focused LLM/chat screen: AyAstra at the top, greeting/motivational prompt in the centre, large ask box, and quick action chips.
+- Kept browser speech output and browser microphone input where supported.
+
+### What I learned
+- Do not create a new sprint for every visual tweak inside the same feature.
+- Keep a feature in one sprint until the direction is approved.
+- AyAstra's UI should feel like a personal assistant/chat interface, not a control dashboard.
+
+### Next steps
+- Test `python assistant_ui.py`.
+- Refine Sprint 12 UI until Ayanda is satisfied.
