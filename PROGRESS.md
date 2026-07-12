@@ -1,3 +1,92 @@
+## Rebuild Phase — Clean Architecture Setup (2026-07-12)
+
+- Renamed `ay_astra` package to `quantacore`.
+- Fixed all broken imports.
+- Created clean Flask backend (`app.py`).
+- Separated frontend into:
+  - templates/
+  - static/css/
+  - static/js/
+- Confirmed Flask server runs successfully on port 8765.
+- Established clean project architecture for AyAstra v2.
+
+Learning:
+- Folder names affect Python imports.
+- Flask expects `templates/` at root level.
+- Clean architecture prevents scaling problems later.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 # Progress Log — AyAstra / QuantaCore
 
 ## 2026-06-14 — Sprint 0/1 Starter Created

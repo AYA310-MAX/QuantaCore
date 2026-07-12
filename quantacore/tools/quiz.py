@@ -17,9 +17,9 @@ from dataclasses import dataclass, field
 from datetime import datetime
 from typing import Any
 
-from ay_astra.brain import AIBrain
-from ay_astra.storage.json_store import load_json
-from ay_astra.tools.learning import LEARNING_LOG_PATH
+from quantacore.brain import AIBrain
+from quantacore.storage.json_store import load_json
+from quantacore.tools.learning import LEARNING_LOG_PATH
 
 
 @dataclass

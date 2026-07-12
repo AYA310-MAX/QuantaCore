@@ -10,15 +10,24 @@ Later, this router will decide when to call web search, news APIs, or smart-home
 
 from __future__ import annotations
 
-from ay_astra.brain import AIBrain
-from ay_astra.personality import style_reply
-from ay_astra.tools.learning import handle_learning_command
-from ay_astra.tools.news import get_news_brief
-from ay_astra.tools.quiz import handle_quiz_command
-from ay_astra.tools.reminders import add_reminder, list_reminders
-from ay_astra.tools.voice import handle_voice_command
-from ay_astra.tools.research import get_research_brief
-from ay_astra.tools.tasks import add_task, complete_task, list_tasks
+from quantacore.brain import AIBrain
+from quantacore.personality import style_reply
+from quantacore.tools.learning import handle_learning_command
+from quantacore.tools.news import get_news_brief
+from quantacore.tools.quiz import handle_quiz_command
+from quantacore.tools.reminders import add_reminder, list_reminders
+from quantacore.tools.voice import handle_voice_command
+from quantacore.tools.research import get_research_brief
+from quantacore.tools.tasks import add_task, complete_task, list_tasks
+
+class Assistant:
+    def __init__(self):
+        self.name = "AyAstra"
+
+    def handle_message(self, message: str) -> str:
+        # Temporary simple response
+        return f"{self.name} heard you say: '{message}'. I'm still evolving 🟣"
+
 
 HELP_TEXT = """
 Commands available:

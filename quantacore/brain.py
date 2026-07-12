@@ -18,8 +18,8 @@ import urllib.request
 from dataclasses import dataclass
 from typing import Literal
 
-from ay_astra.config import AppConfig, load_config
-from ay_astra.personality import PERSONALITY_SUMMARY
+from quantacore.config import AppConfig, load_config
+from quantacore.personality import PERSONALITY_SUMMARY
 
 BrainMode = Literal["chat", "tutor"]
 

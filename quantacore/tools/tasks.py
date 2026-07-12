@@ -5,7 +5,7 @@ from __future__ import annotations
 from datetime import datetime
 from pathlib import Path
 
-from ay_astra.storage.json_store import load_json, save_json
+from quantacore.storage.json_store import load_json, save_json
 
 TASKS_PATH = Path("data/tasks.json")
 

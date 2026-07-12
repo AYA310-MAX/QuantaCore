@@ -6,10 +6,10 @@ Run with:
 This is the first beginner-friendly version: a terminal chat loop with tools.
 """
 
-from ay_astra.assistant import handle_message
-from ay_astra.personality import banner, style_reply
-from ay_astra.tools.reminders import get_due_reminders
-from ay_astra.tools.voice import speak_response
+from quantacore.assistant import handle_message
+from quantacore.personality import banner, style_reply
+from quantacore.tools.reminders import get_due_reminders
+from quantacore.tools.voice import speak_response
 
 
 def show_due_reminders() -> None:
@@ -29,10 +29,10 @@ Run with:
 This is the beginner-friendly terminal app: a chat loop with tools.
 """
 
-from ay_astra.assistant import handle_message
-from ay_astra.personality import banner, style_reply
-from ay_astra.tools.reminders import get_due_reminders
-from ay_astra.tools.voice import speak_response
+from quantacore.assistant import handle_message
+from quantacore.personality import banner, style_reply
+from quantacore.tools.reminders import get_due_reminders
+from quantacore.tools.voice import speak_response
 
 
 def show_due_reminders() -> None:
