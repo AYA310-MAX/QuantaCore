@@ -15,3 +15,10 @@
 - Added floating animation.
 - Implemented state system via JS class toggles.
 
+Milestone 4 — CSS Cinematic Splash System
+
+- Replaced splash screen with fully CSS-based energy core.
+- Added rotating ring and pulsing glow.
+- Implemented subtle cosmic background drift.
+- Integrated cinematic 4-second fade transition.
+- Maintained minimalist sci-fi aesthetic.

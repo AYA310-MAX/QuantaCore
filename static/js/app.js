@@ -1,29 +1,48 @@
 const aura = document.getElementById("aura");
 const face = document.getElementById("face");
 const eyes = document.querySelectorAll(".eye");
+const overlay = document.getElementById("system-overlay");
+const glyphText = document.getElementById("glyph-text");
 
 let idleTimer;
 
-/* SPLASH */
+/* Wakanda Glyph Map */
+const glyphMap = {
+    A:"ᚨ",B:"ᛒ",C:"ᚲ",D:"ᛞ",E:"ᛖ",F:"ᚠ",G:"ᚷ",H:"ᚺ",
+    I:"ᛁ",J:"ᛃ",K:"ᚲ",L:"ᛚ",M:"ᛗ",N:"ᚾ",O:"ᛟ",P:"ᛈ",
+    Q:"ᛩ",R:"ᚱ",S:"ᛊ",T:"ᛏ",U:"ᚢ",V:"ᚡ",W:"ᚹ",X:"ᛪ",
+    Y:"ᚤ",Z:"ᛉ"
+};
+
+/* Convert to glyph */
+function toGlyph(text) {
+    return text.toUpperCase().split("").map(c => glyphMap[c] || c).join("");
+}
+
+/* Splash */
 window.addEventListener("load", () => {
+    const splash = document.getElementById("splash-screen");
+    const mainApp = document.getElementById("main-app");
+
+    // Let splash breathe for 4 seconds
     setTimeout(() => {
-        document.getElementById("splash-screen").style.opacity = "0";
-        document.getElementById("splash-screen").style.transition = "opacity 1s ease";
+
+        splash.style.transition = "opacity 1.2s ease";
+        splash.style.opacity = "0";
 
         setTimeout(() => {
-            document.getElementById("splash-screen").remove();
-            document.getElementById("main-app").classList.remove("hidden");
-        }, 1000);
+            splash.remove();
+            mainApp.classList.remove("hidden");
+        }, 1200);
 
-    }, 3000);
+    }, 4000); // ← Cinematic delay
 });
 
-/* EYE TRACK */
+/* Eye tracking */
 document.addEventListener("mousemove", (e) => {
     const rect = face.getBoundingClientRect();
     const centerX = rect.left + rect.width / 2;
     const centerY = rect.top + rect.height / 2;
-
     const deltaX = (e.clientX - centerX) / 30;
     const deltaY = (e.clientY - centerY) / 30;
 
@@ -34,8 +53,7 @@ document.addEventListener("mousemove", (e) => {
     resetIdle();
 });
 
-/* IDLE SYSTEM */
-
+/* Idle */
 function resetIdle() {
     clearTimeout(idleTimer);
     face.classList.remove("sleep");
@@ -47,12 +65,20 @@ function resetIdle() {
 
 resetIdle();
 
-/* CHAT */
+/* Show overlay */
+function showOverlay(text) {
+    glyphText.textContent = toGlyph(text);
+    overlay.classList.remove("hidden");
+}
 
+function hideOverlay() {
+    overlay.classList.add("hidden");
+}
+
+/* Chat */
 async function sendMessage() {
     const input = document.getElementById("user-input");
     const chatBox = document.getElementById("chat-box");
-
     const message = input.value;
     if (!message) return;
 
@@ -63,6 +89,8 @@ async function sendMessage() {
     face.classList.add("thinking");
     aura.classList.add("active");
 
+    showOverlay("System Processing");
+
     const response = await fetch("/chat", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -70,6 +98,8 @@ async function sendMessage() {
     });
 
     const data = await response.json();
+
+    hideOverlay();
 
     face.classList.remove("thinking");
     face.classList.add("talking");
