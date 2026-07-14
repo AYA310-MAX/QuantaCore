@@ -1,19 +1,78 @@
 body {
     margin: 0;
     font-family: Arial, sans-serif;
-    background: radial-gradient(circle at top, #1e202c 0%, #000 80%);
+    overflow-x: hidden;
+    background: linear-gradient(-45deg, #0e0f17, #1e202c, #0a0b14, #12131c);
+    background-size: 400% 400%;
+    animation: gradientShift 15s ease infinite;
     color: white;
 }
 
-/* HERO */
+/* Animated gradient sky */
+
+@keyframes gradientShift {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+/* Stars */
+
+.stars {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    background: transparent;
+    background-image:
+        radial-gradient(2px 2px at 20% 30%, white, transparent),
+        radial-gradient(2px 2px at 80% 70%, white, transparent),
+        radial-gradient(1px 1px at 50% 10%, white, transparent),
+        radial-gradient(1px 1px at 70% 50%, white, transparent);
+    animation: moveStars 60s linear infinite;
+    z-index: 0;
+}
+
+@keyframes moveStars {
+    from { transform: translateY(0); }
+    to { transform: translateY(-100px); }
+}
+
+/* Hero */
 
 .hero {
     height: 100vh;
     display: flex;
     align-items: center;
     justify-content: center;
+    position: relative;
+    z-index: 1;
     text-align: center;
-    padding: 0 20px;
+}
+
+/* Planet */
+
+.planet {
+    position: absolute;
+    bottom: 0;
+    width: 600px;
+    height: 600px;
+    background: radial-gradient(circle at 30% 30%, #60519b, #1e202c 70%);
+    border-radius: 50%;
+    filter: blur(1px);
+    transform: translateY(200px);
+    animation: floatPlanet 8s ease-in-out infinite;
+}
+
+@keyframes floatPlanet {
+    0%,100% { transform: translateY(200px); }
+    50% { transform: translateY(180px); }
+}
+
+/* Hero content */
+
+.hero-content {
+    position: relative;
+    z-index: 2;
 }
 
 .hero-content h1 {
@@ -24,7 +83,6 @@ body {
 .hero-content p {
     margin-top: 15px;
     color: #bfc0d1;
-    font-size: 16px;
 }
 
 .hero-buttons {
@@ -34,37 +92,39 @@ body {
     justify-content: center;
 }
 
+/* Buttons */
+
 .btn-primary {
     background: #60519b;
     padding: 12px 24px;
     border-radius: 8px;
-    color: white;
     text-decoration: none;
+    color: white;
     transition: 0.3s;
 }
 
 .btn-primary:hover {
-    background: #7a69c9;
+    box-shadow: 0 0 20px #60519b;
 }
 
 .btn-outline {
     border: 2px solid #60519b;
     padding: 10px 22px;
     border-radius: 8px;
-    color: white;
     text-decoration: none;
+    color: white;
+    transition: 0.3s;
 }
 
-/* BUILD SECTION */
+.btn-outline:hover {
+    box-shadow: 0 0 20px #60519b;
+}
+
+/* Build Section */
 
 .build-section {
-    padding: 100px 60px;
+    padding: 120px 60px;
     text-align: center;
-}
-
-.build-section h2 {
-    font-size: 30px;
-    margin-bottom: 60px;
 }
 
 .build-grid {
@@ -82,26 +142,32 @@ body {
 }
 
 .build-card:hover {
-    transform: translateY(-8px);
+    transform: translateY(-10px);
     box-shadow: 0 0 30px rgba(96,81,155,0.7);
 }
 
-/* FOOTER */
+/* Scroll fade-in */
+
+.fade-in {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: 1s ease;
+}
+
+.fade-in.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Footer */
 
 .footer {
     background: #0e0f17;
     padding: 40px 60px;
-    margin-top: 80px;
 }
 
 .footer-content {
     display: flex;
     justify-content: space-between;
     align-items: center;
-}
-
-.footer-links a {
-    margin-left: 20px;
-    color: #bfc0d1;
-    text-decoration: none;
 }
