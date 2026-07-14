@@ -2,8 +2,8 @@
     --bg-primary: #1e202c;
     --bg-secondary: #31323e;
     --accent: #60519b;
+    --accent-light: #bfc0d1;
     --text-primary: #ffffff;
-    --text-secondary: #bfc0d1;
 }
 
 body {
@@ -14,7 +14,7 @@ body {
     overflow: hidden;
 }
 
-/* SPLASH SCREEN */
+/* SPLASH */
 
 #splash-screen {
     position: fixed;
@@ -64,7 +64,7 @@ body {
     display: none;
 }
 
-/* HERO LAYOUT */
+/* HERO */
 
 .hero-section {
     display: flex;
@@ -73,13 +73,21 @@ body {
     justify-content: space-around;
 }
 
-/* CORE */
+/* CORE CONTAINER */
 
 .core-container {
     position: relative;
-    width: 200px;
-    height: 200px;
+    width: 220px;
+    height: 220px;
+    animation: floatCore 4s ease-in-out infinite;
 }
+
+@keyframes floatCore {
+    0%,100% { transform: translateY(0px); }
+    50% { transform: translateY(-10px); }
+}
+
+/* FACE */
 
 .face {
     width: 100%;
@@ -90,6 +98,29 @@ body {
     align-items: center;
     justify-content: center;
     box-shadow: 0 0 40px rgba(96,81,155,0.6);
+    transition: all 0.3s ease;
+}
+
+/* THINKING STATE */
+.face.thinking {
+    box-shadow: 0 0 70px rgba(96,81,155,1);
+    animation: rotateHalo 6s linear infinite;
+}
+
+@keyframes rotateHalo {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+/* TALKING STATE */
+.face.talking {
+    box-shadow: 0 0 80px rgba(191,192,209,1);
+}
+
+/* SLEEP STATE */
+.face.sleep {
+    opacity: 0.6;
+    filter: blur(1px);
 }
 
 .eyes {
@@ -102,34 +133,67 @@ body {
     height: 28px;
     background: white;
     border-radius: 10px;
-    transition: transform 0.1s linear;
+    transition: all 0.1s linear;
+}
+
+/* BLINK */
+@keyframes blink {
+    0%, 95%, 100% { height: 28px; }
+    97% { height: 3px; }
+}
+
+.eye {
+    animation: blink 6s infinite;
 }
 
 /* AURA */
 
 .aura {
     position: absolute;
-    width: 240px;
-    height: 240px;
+    width: 260px;
+    height: 260px;
     top: -20px;
     left: -20px;
     border-radius: 50%;
     background: radial-gradient(circle, rgba(96,81,155,0.6) 0%, transparent 70%);
     opacity: 0;
+    transition: opacity 0.3s ease;
 }
 
-.aura.talking {
+.aura.active {
     opacity: 1;
     animation: pulse 1.2s infinite;
 }
 
 @keyframes pulse {
-    0% { transform: scale(1); opacity: 0.6; }
-    50% { transform: scale(1.1); opacity: 1; }
-    100% { transform: scale(1); opacity: 0.6; }
+    0% { transform: scale(1); }
+    50% { transform: scale(1.15); }
+    100% { transform: scale(1); }
 }
 
-/* SYSTEM PANEL */
+/* PARTICLES */
+
+.core-container::after {
+    content: "";
+    position: absolute;
+    inset: -40px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(96,81,155,0.2), transparent 70%);
+    animation: particleWave 3s infinite;
+    opacity: 0;
+}
+
+.face.talking + .core-container::after {
+    opacity: 1;
+}
+
+@keyframes particleWave {
+    0% { transform: scale(0.9); opacity: 0.3; }
+    50% { transform: scale(1.2); opacity: 0.6; }
+    100% { transform: scale(0.9); opacity: 0.3; }
+}
+
+/* PANEL */
 
 .system-panel {
     width: 40%;

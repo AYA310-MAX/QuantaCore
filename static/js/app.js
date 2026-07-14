@@ -2,7 +2,9 @@ const aura = document.getElementById("aura");
 const face = document.getElementById("face");
 const eyes = document.querySelectorAll(".eye");
 
-/* Splash Fade */
+let idleTimer;
+
+/* SPLASH */
 window.addEventListener("load", () => {
     setTimeout(() => {
         document.getElementById("splash-screen").style.opacity = "0";
@@ -16,7 +18,7 @@ window.addEventListener("load", () => {
     }, 3000);
 });
 
-/* Eye Tracking */
+/* EYE TRACK */
 document.addEventListener("mousemove", (e) => {
     const rect = face.getBoundingClientRect();
     const centerX = rect.left + rect.width / 2;
@@ -28,9 +30,25 @@ document.addEventListener("mousemove", (e) => {
     eyes.forEach(eye => {
         eye.style.transform = `translate(${deltaX}px, ${deltaY}px)`;
     });
+
+    resetIdle();
 });
 
-/* Chat */
+/* IDLE SYSTEM */
+
+function resetIdle() {
+    clearTimeout(idleTimer);
+    face.classList.remove("sleep");
+
+    idleTimer = setTimeout(() => {
+        face.classList.add("sleep");
+    }, 30000);
+}
+
+resetIdle();
+
+/* CHAT */
+
 async function sendMessage() {
     const input = document.getElementById("user-input");
     const chatBox = document.getElementById("chat-box");
@@ -41,7 +59,9 @@ async function sendMessage() {
     chatBox.innerHTML += `<p><strong>You:</strong> ${message}</p>`;
     input.value = "";
 
-    aura.classList.add("talking");
+    face.classList.remove("sleep");
+    face.classList.add("thinking");
+    aura.classList.add("active");
 
     const response = await fetch("/chat", {
         method: "POST",
@@ -51,8 +71,14 @@ async function sendMessage() {
 
     const data = await response.json();
 
-    aura.classList.remove("talking");
+    face.classList.remove("thinking");
+    face.classList.add("talking");
 
     chatBox.innerHTML += `<p><strong>AyAstra:</strong> ${data.reply}</p>`;
     chatBox.scrollTop = chatBox.scrollHeight;
+
+    setTimeout(() => {
+        face.classList.remove("talking");
+        aura.classList.remove("active");
+    }, 1500);
 }
