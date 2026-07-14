@@ -16,7 +16,11 @@ Learning:
 - Clean architecture prevents scaling problems later.
 
 
+## Feature: Reconnect full Assistant router to Flask UI
 
+- Removed temporary stub response from Assistant class.
+- Connected Assistant.handle_message() to main router logic.
+- Verified that web UI now supports commands like /help and normal chat.
 
 
 

@@ -25,10 +25,8 @@ class Assistant:
         self.name = "AyAstra"
 
     def handle_message(self, message: str) -> str:
-        # Temporary simple response
-        return f"{self.name} heard you say: '{message}'. I'm still evolving 🟣"
-
-
+        return handle_message(message)
+    
 HELP_TEXT = """
 Commands available:
 /help                         Show this help menu
