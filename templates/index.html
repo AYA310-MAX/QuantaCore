@@ -3,16 +3,18 @@
 <head>
     <title>QuantaCore</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+    
 </head>
 <body>
 
 <!-- SPLASH SCREEN -->
 <div id="splash-screen">
-    <div class="space-bg"></div>
+    <div class="splash-content">
+        <img src="{{ url_for('static', filename='logo.png') }}"
+             class="splash-logo"
+             alt="QuantaCore Logo">
 
-    <div class="core-ring">
-        <div class="inner-core"></div>
-        <h1 class="core-title">Quanta Core</h1>
+        <h1 class="splash-title">Quanta Core</h1>
     </div>
 </div>
 
