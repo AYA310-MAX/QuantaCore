@@ -7,18 +7,66 @@
 <body class="boot-body">
 
 <div class="boot-container">
+
     <img src="{{ url_for('static', filename='logo.png') }}" 
-         class="boot-logo"
+         class="boot-logo-rotate"
          alt="QuantaCore Logo">
 
-    <h1 class="boot-title">Initializing QuantaCore</h1>
-    <p class="boot-sub">System boot sequence in progress...</p>
+    <h1 class="boot-title">QUANTACORE</h1>
+
+    <div class="glyph-line" id="glyphLine"></div>
+
+    <div class="progress-bar">
+        <div class="progress-fill" id="progressFill"></div>
+    </div>
+
+    <p class="boot-sub" id="bootStatus">Initializing neural core...</p>
+
 </div>
 
 <script>
-    setTimeout(function() {
-        window.location.href = "/ai";
-    }, 3000);  // 3 second boot
+    const glyphMap = {
+        A:"ᚨ",B:"ᛒ",C:"ᚲ",D:"ᛞ",E:"ᛖ",F:"ᚠ",G:"ᚷ",H:"ᚺ",
+        I:"ᛁ",J:"ᛃ",K:"ᚲ",L:"ᛚ",M:"ᛗ",N:"ᚾ",O:"ᛟ",P:"ᛈ",
+        Q:"ᛩ",R:"ᚱ",S:"ᛊ",T:"ᛏ",U:"ᚢ",V:"ᚡ",W:"ᚹ",X:"ᛪ",
+        Y:"ᚤ",Z:"ᛉ"
+    };
+
+    function toGlyph(text) {
+        return text.toUpperCase().split("").map(c => glyphMap[c] || c).join("");
+    }
+
+    const glyphLine = document.getElementById("glyphLine");
+    const progressFill = document.getElementById("progressFill");
+    const bootStatus = document.getElementById("bootStatus");
+
+    const steps = [
+        "Initializing neural core",
+        "Loading cognitive modules",
+        "Syncing memory arrays",
+        "Activating AI engine",
+        "System online"
+    ];
+
+    let progress = 0;
+    let stepIndex = 0;
+
+    const interval = setInterval(() => {
+        progress += 20;
+        progressFill.style.width = progress + "%";
+
+        glyphLine.textContent = toGlyph(steps[stepIndex]);
+        bootStatus.textContent = steps[stepIndex] + "...";
+
+        stepIndex++;
+
+        if (progress >= 100) {
+            clearInterval(interval);
+            setTimeout(() => {
+                window.location.href = "/ai";
+            }, 1000);
+        }
+    }, 700);
 </script>
 
 </body>
