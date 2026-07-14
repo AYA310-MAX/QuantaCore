@@ -1,67 +1,57 @@
 <!DOCTYPE html>
-<html data-theme="dark">
+<html>
 <head>
     <title>QuantaCore</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/landing.css') }}">
 </head>
 <body>
 
-<!-- STAR FIELD -->
-<div class="stars"></div>
+<header class="navbar">
+    <div class="nav-left">
+        <span class="logo">QuantaCore</span>
+    </div>
 
-<!-- HERO -->
+    <div class="nav-center">
+        <a href="#">Features</a>
+        <a href="#">Docs</a>
+        <a href="#">Pricing</a>
+    </div>
+
+    <div class="nav-right">
+        <a href="/login" class="nav-link">Sign In</a>
+        <a href="/register" class="nav-button">Get Started</a>
+    </div>
+</header>
+
 <section class="hero">
 
-    <div class="planet"></div>
+    <div class="hero-overlay"></div>
 
     <div class="hero-content">
-        <h1>We build intelligent systems<br>that evolve with you.</h1>
-        <p>QuantaCore is your Wakanda-inspired AI platform.</p>
+
+        <div class="badge">Early Access Beta</div>
+
+        <h1>
+            Build Smarter With<br>
+            <span class="accent">QuantaCore Intelligence</span>
+        </h1>
+
+        <p>
+            A Wakanda-inspired AI system designed to evolve with you.
+        </p>
 
         <div class="hero-buttons">
             <a href="/register" class="btn-primary">Get Started</a>
-            <a href="/login" class="btn-outline">Login</a>
-        </div>
-    </div>
-
-</section>
-
-<!-- WHAT WE BUILD -->
-<section class="build-section">
-
-    <h2 class="fade-in">What We Build</h2>
-
-    <div class="build-grid">
-
-        <div class="build-card fade-in">
-            <h3>AI Assistants</h3>
-            <p>Conversational, adaptive, intelligent systems.</p>
-        </div>
-
-        <div class="build-card fade-in">
-            <h3>Automation</h3>
-            <p>Smart workflows powered by AI.</p>
-        </div>
-
-        <div class="build-card fade-in">
-            <h3>Analytics</h3>
-            <p>Insight-driven dashboards and reports.</p>
-        </div>
-
-        <div class="build-card fade-in">
-            <h3>Custom Systems</h3>
-            <p>Tailored AI platforms for real-world use.</p>
+            <a href="/login" class="btn-secondary">Watch Demo</a>
         </div>
 
     </div>
 
 </section>
 
-<!-- FOOTER -->
 <footer class="footer">
     <div class="footer-content">
         <p>© 2026 QuantaCore. All rights reserved.</p>
-
         <div class="footer-links">
             <a href="/login">Login</a>
             <a href="/register">Sign Up</a>
@@ -70,6 +60,5 @@
     </div>
 </footer>
 
-<script src="{{ url_for('static', filename='js/landing.js') }}"></script>
 </body>
 </html>
