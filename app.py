@@ -2,8 +2,6 @@ from flask import Flask, render_template, request, jsonify
 from quantacore.assistant import Assistant
 
 app = Flask(__name__)
-
-# Create one assistant instance
 assistant = Assistant()
 
 
@@ -14,13 +12,13 @@ def home():
 
 @app.route("/chat", methods=["POST"])
 def chat():
-    user_message = request.json.get("message")
+    data = request.get_json()
+    message = data.get("message", "").strip()
 
-    if not user_message:
-        return jsonify({"reply": "I didn't receive a message."})
+    if not message:
+        return jsonify({"reply": "..."})
 
-    reply = assistant.handle_message(user_message)
-
+    reply = assistant.handle_message(message)
     return jsonify({"reply": reply})
 
 

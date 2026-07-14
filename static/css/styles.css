@@ -7,25 +7,142 @@
 }
 
 body {
-    background-color: var(--bg-primary);
-    color: var(--text-primary);
-    font-family: Arial, sans-serif;
     margin: 0;
-    padding: 0;
+    font-family: Arial, sans-serif;
+    background: radial-gradient(circle at top, #1e202c 0%, #000 100%);
+    color: var(--text-primary);
+    overflow: hidden;
 }
 
-.chat-container {
-    width: 60%;
-    margin: 50px auto;
-    background-color: var(--bg-secondary);
-    padding: 20px;
+/* SPLASH SCREEN */
+
+#splash-screen {
+    position: fixed;
+    inset: 0;
+    background: black;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+}
+
+.crescent-container {
+    position: relative;
+    width: 200px;
+    height: 200px;
+    margin-bottom: 30px;
+}
+
+.crescent {
+    position: absolute;
+    width: 160px;
+    height: 160px;
+    border-radius: 50%;
+}
+
+.crescent.left {
+    border-left: 8px solid white;
+    left: 0;
+    box-shadow: 0 0 25px var(--accent);
+}
+
+.crescent.right {
+    border-right: 8px solid white;
+    right: 0;
+    box-shadow: 0 0 25px var(--accent);
+}
+
+.splash-title {
+    font-size: 42px;
+    letter-spacing: 8px;
+    color: var(--accent);
+    text-shadow: 0 0 25px var(--accent);
+}
+
+.hidden {
+    display: none;
+}
+
+/* HERO LAYOUT */
+
+.hero-section {
+    display: flex;
+    height: 100vh;
+    align-items: center;
+    justify-content: space-around;
+}
+
+/* CORE */
+
+.core-container {
+    position: relative;
+    width: 200px;
+    height: 200px;
+}
+
+.face {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    background: radial-gradient(circle at 30% 30%, #60519b, #31323e 70%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 0 40px rgba(96,81,155,0.6);
+}
+
+.eyes {
+    display: flex;
+    gap: 25px;
+}
+
+.eye {
+    width: 14px;
+    height: 28px;
+    background: white;
     border-radius: 10px;
+    transition: transform 0.1s linear;
+}
+
+/* AURA */
+
+.aura {
+    position: absolute;
+    width: 240px;
+    height: 240px;
+    top: -20px;
+    left: -20px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(96,81,155,0.6) 0%, transparent 70%);
+    opacity: 0;
+}
+
+.aura.talking {
+    opacity: 1;
+    animation: pulse 1.2s infinite;
+}
+
+@keyframes pulse {
+    0% { transform: scale(1); opacity: 0.6; }
+    50% { transform: scale(1.1); opacity: 1; }
+    100% { transform: scale(1); opacity: 0.6; }
+}
+
+/* SYSTEM PANEL */
+
+.system-panel {
+    width: 40%;
+    background: rgba(49,50,62,0.7);
+    padding: 30px;
+    border-radius: 15px;
+    backdrop-filter: blur(10px);
 }
 
 #chat-box {
-    height: 400px;
+    height: 300px;
     overflow-y: auto;
-    margin-bottom: 15px;
+    margin-bottom: 20px;
 }
 
 .input-area {
@@ -35,16 +152,16 @@ body {
 input {
     flex: 1;
     padding: 10px;
+    border-radius: 6px;
     border: none;
-    border-radius: 5px;
 }
 
 button {
-    background-color: var(--accent);
-    color: white;
+    background: var(--accent);
     border: none;
     padding: 10px 15px;
     margin-left: 10px;
-    border-radius: 5px;
+    color: white;
+    border-radius: 6px;
     cursor: pointer;
 }
