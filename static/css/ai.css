@@ -1,0 +1,180 @@
+body {
+    margin: 0;
+    overflow: hidden;
+    background: black;
+}
+
+/* Background */
+
+.ai-background {
+    position: fixed;
+    inset: 0;
+    background: url("../lab-bg.jpg") center/cover no-repeat;
+    z-index: 0;
+}
+
+.ai-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.7);
+    z-index: 1;
+}
+
+.ai-center {
+    position: relative;
+    z-index: 2;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Cube */
+
+.cube-container {
+    position: relative;
+    width: 350px;
+    height: 350px;
+    animation: floatCube 6s ease-in-out infinite;
+}
+
+.cube-image {
+    width: 100%;
+    opacity: 0.2;
+}
+
+/* Blob */
+
+.blob {
+    position: absolute;
+    inset: 40px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 30% 30%, #7a69c9, #60519b 60%, #31323e);
+    box-shadow: 0 0 60px rgba(96,81,155,0.8);
+    animation: breathe 5s ease-in-out infinite;
+    transition: background 0.4s ease, transform 0.3s ease;
+    overflow: hidden;
+}
+
+/* Physics wobble */
+
+.blob.wobble {
+    animation: wobble 0.6s ease;
+}
+
+@keyframes wobble {
+    0% { transform: scale(1); }
+    30% { transform: scale(1.1, 0.9); }
+    60% { transform: scale(0.9, 1.1); }
+    100% { transform: scale(1); }
+}
+
+@keyframes breathe {
+    0%,100% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+}
+
+@keyframes floatCube {
+    0%,100% { transform: translateY(0px); }
+    50% { transform: translateY(-20px); }
+}
+
+/* Aura */
+
+.aura {
+    position: absolute;
+    inset: -30px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(96,81,155,0.6), transparent 70%);
+    animation: pulseAura 2s infinite;
+    z-index: -1;
+}
+
+@keyframes pulseAura {
+    0% { transform: scale(1); opacity: 0.7; }
+    50% { transform: scale(1.2); opacity: 1; }
+    100% { transform: scale(1); opacity: 0.7; }
+}
+
+/* Ripple */
+
+.blob::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+    background: radial-gradient(circle at center, rgba(255,255,255,0.4), transparent 70%);
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+.blob.clicked::after {
+    opacity: 1;
+    animation: ripple 0.5s ease;
+}
+
+@keyframes ripple {
+    from { transform: scale(0.8); opacity: 0.6; }
+    to { transform: scale(1.4); opacity: 0; }
+}
+
+/* Face */
+
+.face {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.eyes {
+    display: flex;
+    gap: 40px;
+}
+
+.eye {
+    width: 16px;
+    height: 28px;
+    background: white;
+    border-radius: 10px;
+    transition: 0.1s;
+}
+
+.eyebrows {
+    display: flex;
+    gap: 40px;
+    margin-bottom: 8px;
+}
+
+.eyebrow {
+    width: 30px;
+    height: 5px;
+    background: white;
+    border-radius: 5px;
+    transition: 0.2s;
+}
+
+.mouth {
+    width: 50px;
+    height: 20px;
+    border-bottom: 4px solid white;
+    border-radius: 50%;
+    margin-top: 15px;
+    transition: 0.2s;
+}
+
+/* Emotions */
+
+.blob.happy .mouth {
+    border-bottom: 6px solid white;
+}
+
+.blob.angry {
+    background: radial-gradient(circle at 30% 30%, #a33, #700 60%, #300);
+}
+
+.blob.sleepy .eye {
+    height: 4px;
+}

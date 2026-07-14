@@ -1,10 +1,48 @@
-{% extends "base.html" %}
+<!DOCTYPE html>
+<html data-theme="dark">
+<head>
+    <title>QuantaCore AI</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/ai.css') }}">
+</head>
+<body>
 
-{% block content %}
-<div class="ai-page">
-    <h2>AyAstra AI</h2>
-    <div class="ai-placeholder">
-        AI interface will go here.
+<div class="ai-background"></div>
+<div class="ai-overlay"></div>
+
+<div class="ai-center">
+
+    <div class="cube-container">
+
+        <img src="{{ url_for('static', filename='logo.png') }}"
+             class="cube-image"
+             alt="QuantaCore Cube">
+
+        <div class="blob" id="blob">
+
+            <div class="aura"></div>
+
+            <div class="face">
+
+                <div class="eyebrows">
+                    <div class="eyebrow left-brow"></div>
+                    <div class="eyebrow right-brow"></div>
+                </div>
+
+                <div class="eyes">
+                    <div class="eye left-eye"></div>
+                    <div class="eye right-eye"></div>
+                </div>
+
+                <div class="mouth"></div>
+
+            </div>
+
+        </div>
+
     </div>
+
 </div>
-{% endblock %}
+
+<script src="{{ url_for('static', filename='js/ai.js') }}"></script>
+</body>
+</html>

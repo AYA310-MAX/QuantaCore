@@ -1,60 +1,69 @@
 <!DOCTYPE html>
-<html>
+<html data-theme="dark">
 <head>
     <title>QuantaCore</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
-    
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/landing.css') }}">
 </head>
 <body>
 
-<!-- SPLASH SCREEN -->
-<div id="splash-screen">
-    <div class="splash-content">
-        <img src="{{ url_for('static', filename='logo.png') }}"
-             class="splash-logo"
-             alt="QuantaCore Logo">
+<!-- HERO SECTION -->
+<section class="hero">
 
-        <h1 class="splash-title">Quanta Core</h1>
+    <div class="hero-content">
+        <h1>We build intelligent systems<br>that evolve with you.</h1>
+        <p>QuantaCore is your Wakanda-inspired AI platform.</p>
+
+        <div class="hero-buttons">
+            <a href="/register" class="btn-primary">Get Started</a>
+            <a href="/login" class="btn-outline">Login</a>
+        </div>
     </div>
-</div>
 
-<!-- SYSTEM OVERLAY -->
-<div id="system-overlay" class="hidden">
-    <div class="glyph-text" id="glyph-text"></div>
-    <div class="translation-text">SYSTEM PROCESSING...</div>
-</div>
+</section>
 
-<!-- MAIN APP -->
-<div id="main-app" class="hidden">
+<!-- WHAT WE BUILD -->
+<section class="build-section">
 
-    <div class="hero-section">
+    <h2>What We Build</h2>
 
-        <div class="core-container">
-            <div class="aura" id="aura"></div>
+    <div class="build-grid">
 
-            <div class="face" id="face">
-                <div class="eyes">
-                    <div class="eye"></div>
-                    <div class="eye"></div>
-                </div>
-            </div>
+        <div class="build-card">
+            <h3>AI Assistants</h3>
+            <p>Conversational, adaptive, intelligent systems.</p>
         </div>
 
-        <div class="system-panel">
-            <h2>AyAstra</h2>
+        <div class="build-card">
+            <h3>Automation</h3>
+            <p>Smart workflows powered by AI.</p>
+        </div>
 
-            <div id="chat-box"></div>
+        <div class="build-card">
+            <h3>Analytics</h3>
+            <p>Insight-driven dashboards and reports.</p>
+        </div>
 
-            <div class="input-area">
-                <input type="text" id="user-input" placeholder="Speak to QuantaCore..." />
-                <button onclick="sendMessage()">Send</button>
-            </div>
+        <div class="build-card">
+            <h3>Custom Systems</h3>
+            <p>Tailored AI platforms for real-world use.</p>
         </div>
 
     </div>
 
-</div>
+</section>
 
-<script src="{{ url_for('static', filename='js/app.js') }}"></script>
+<!-- FOOTER -->
+<footer class="footer">
+    <div class="footer-content">
+        <p>© 2026 QuantaCore. All rights reserved.</p>
+
+        <div class="footer-links">
+            <a href="/login">Login</a>
+            <a href="/register">Sign Up</a>
+            <a href="/dashboard">Dashboard</a>
+        </div>
+    </div>
+</footer>
+
 </body>
 </html>
