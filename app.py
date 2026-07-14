@@ -1,26 +1,34 @@
-from flask import Flask, render_template, request, jsonify
-from quantacore.assistant import Assistant
+from flask import Flask, render_template
 
 app = Flask(__name__)
-assistant = Assistant()
-
 
 @app.route("/")
-def home():
-    return render_template("index.html")
+def landing():
+    return render_template("landing.html")
 
+@app.route("/login")
+def login():
+    return render_template("login.html")
 
-@app.route("/chat", methods=["POST"])
-def chat():
-    data = request.get_json()
-    message = data.get("message", "").strip()
+@app.route("/register")
+def register():
+    return render_template("register.html")
 
-    if not message:
-        return jsonify({"reply": "..."})
+@app.route("/ai")
+def ai():
+    return render_template("ai.html")
 
-    reply = assistant.handle_message(message)
-    return jsonify({"reply": reply})
+@app.route("/dashboard")
+def dashboard():
+    return render_template("dashboard.html")
 
+@app.route("/settings")
+def settings():
+    return render_template("settings.html")
+
+@app.route("/profile")
+def profile():
+    return render_template("profile.html")
 
 if __name__ == "__main__":
     app.run(debug=True, port=8765)

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html data-theme="dark">
+<head>
+    <title>QuantaCore</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/global.css') }}">
+</head>
+<body>
+
+<nav class="navbar">
+    <div class="logo">QuantaCore</div>
+
+    <div class="nav-links">
+        <a href="/">Home</a>
+        <a href="/ai">AI</a>
+        <a href="/dashboard">Dashboard</a>
+        <a href="/settings">Settings</a>
+        <a href="/profile">Profile</a>
+    </div>
+
+    <div class="theme-toggle" onclick="toggleTheme()">
+        🌙
+    </div>
+</nav>
+
+<div class="page-content">
+    {% block content %}{% endblock %}
+</div>
+
+<script src="{{ url_for('static', filename='js/global.js') }}"></script>
+</body>
+</html>
