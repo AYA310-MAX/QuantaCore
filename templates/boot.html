@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Initializing QuantaCore...</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/global.css') }}">
+</head>
+<body class="boot-body">
+
+<div class="boot-container">
+    <img src="{{ url_for('static', filename='logo.png') }}" 
+         class="boot-logo"
+         alt="QuantaCore Logo">
+
+    <h1 class="boot-title">Initializing QuantaCore</h1>
+    <p class="boot-sub">System boot sequence in progress...</p>
+</div>
+
+<script>
+    setTimeout(function() {
+        window.location.href = "/ai";
+    }, 3000);  // 3 second boot
+</script>
+
+</body>
+</html>

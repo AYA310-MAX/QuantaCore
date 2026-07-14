@@ -14,6 +14,10 @@ def login():
 def register():
     return render_template("register.html")
 
+@app.route("/boot")
+def boot():
+    return render_template("boot.html")
+
 @app.route("/ai")
 def ai():
     return render_template("ai.html")
